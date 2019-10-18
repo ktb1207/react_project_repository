@@ -1,0 +1,92 @@
+.home-wrp{
+  height:100%;
+  position: relative;
+  overflow: hidden;
+  .home-header {
+    background-color: #282c34;
+    height: 86px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    .header-link{
+      flex:1 1 auto;
+      ul{
+        list-style: none;
+        padding-left:24px;
+        li{
+          float:left;
+          padding:0 8px;
+          a:link{
+            color:#ffffff;
+            text-decoration: none;
+          }
+          a:hover{
+            color:brown;
+            text-decoration: underline;
+          }
+          a:visited{
+            color:#ffffff;
+            text-decoration: none;
+          }
+          .active-router-style{
+            color:brown !important;
+            text-decoration: underline !important;
+          }
+        }
+      }
+    }
+    .header-logo{
+      flex:0 0 auto;
+      .home-logo {
+        animation: home-logo-spin infinite 20s linear;
+        height: 46px;
+        pointer-events: none;
+      }
+    }
+  }
+  .home-content{
+    position: absolute;
+    top:86px;
+    right:0;
+    bottom:0;
+    left:0;
+    overflow: auto;
+  }
+  .home-demo{
+    margin-top:20px;
+    height:320px;
+    overflow-y:auto;
+    border:1px dotted #282c34;
+    .demo-title{
+      background-color:#282c34;
+      color:#ffffff;
+      padding:4px 16px;
+    }
+  }
+  .home-demo-auto{
+    margin-top:20px;
+    border:1px dotted #282c34;
+    .demo-title{
+      background-color:#282c34;
+      color:#ffffff;
+      padding:4px 16px;
+    }
+  }
+}
+
+  
+  
+  
+
+  
+@keyframes home-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+  

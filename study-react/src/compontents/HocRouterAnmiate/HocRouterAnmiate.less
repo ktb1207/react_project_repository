@@ -1,0 +1,27 @@
+// 进入
+//enter是入场前的刹那（点击按钮），appear指页面第一次加载前的一刹那（自动）
+.hoc-anmiate-enter, .hoc-anmiate-appear{
+    transform: rotate(0deg);
+}
+//enter-active指入场后到入场结束的过程，appear-active则是页面第一次加载自动执行
+.hoc-anmiate-enter-active, .hoc-anmiate-appear-active{
+    transform: rotate(180deg);
+    transition: transform 1s ease-in;
+}
+//入场动画执行完毕后，保持状态
+.hoc-anmiate-done{
+    transform: rotate(0deg);
+}
+// 离开
+.hoc-anmiate-exit {
+    transform: rotate(0deg);
+}
+
+.hoc-anmiate-exit-active {
+    transform: rotate(0deg);
+    transition: transform 1s ease-in;
+}
+
+.hoc-anmiate-exit-done {
+    transform: rotate(0deg);
+}
