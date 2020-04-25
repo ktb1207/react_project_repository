@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import './ReactEvent.less';
 import eventImage from '../../assets/images/react-event.png';
 
 class ReactEvent extends Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super (props);
     this.state = {};
   }
 
-  render() {
+  render () {
     return (
       <div className="event-wrp">
         <h3>事件流</h3>
@@ -70,6 +70,72 @@ class ReactEvent extends Component {
           如果您想以一个异步的方式来访问事件属性，您应该对事件调用event.persist()。
           这将从事件池中取出合成的事件，并允许该事件的引用，使用户的代码被保留。
         </p>
+        <h3>三、class组件事件处理函数的写法：</h3>
+        <p>1.使用箭头函数：</p>
+        <p>{'<button onClick={(e)=>{console.log(e)}}></button>'}</p>
+        <p>
+          <i>优点：</i>
+          <span>不需要手动绑定this</span>
+        </p>
+        <p>
+          <i>缺点：</i>
+          <span>每次render调用，都会重新创建一个新的事件处理函数，带来额外的性能开销</span>
+        </p>
+        <p>2.使用组件方法，将组件的方法赋值给元素的事件属性，同时在构造函数中，手动绑定this</p>
+        <p>
+          <i>优点：</i>
+          <span>没有性能开销</span>
+        </p>
+        <p>
+          <i>缺点：</i>
+          <span>手动绑定有些繁琐</span>
+        </p>
+        <p>3.使用es7的属性初始化语法，实际上也是使用了箭头函数</p>
+        <p>
+          <i>优点：</i>
+          <span>不用手动绑定this,代码简洁</span>
+        </p>
+        <p>
+          <i>缺点：</i>
+          <span>无</span>
+        </p>
+        <h3>
+          <i>使用组件方法为什么要手动绑定this?</i>
+        </h3>
+        <ol>
+          <li>
+            <p>在 React 的类组件中，当我们把事件处理函数引用作为回调传递过去，如下所示：</p>
+            <p>
+              {
+                '<button type="button" onClick={this.handleClick}>Click Me</button>'
+              }
+            </p>
+            <p>
+              事件处理程序方法会丢失其隐式绑定的上下文。当事件被触发并且处理程序被调用时，
+              this的值会回退到默认绑定，即值为 undefined，
+              这是因为类声明和原型方法是以严格模式运行。
+            </p>
+            <p>
+              箭头函数可以免除这种行为，因为它使用的是词法 this 绑定，
+              会将其自动绑定到定义他们的函数上下文。
+            </p>
+          </li>
+          <li>
+            <p>在构造函数中执行{'this.handleClick = this.handleClick.bind(this);'}</p>
+            <p>
+              其用途是：把原型方法handleClick( )改变为实例方法handleClick( ),并且强制指定这个方法中的this指向当前的实例。
+            </p>
+          </li>
+          <li>
+            <p>
+              <i>应责怪 JavaScript，而不是 React</i>
+            </p>
+            <p>原因：在javascript函数当中，函数内部的 this 的值取决于该函数如何被调用</p>
+            <p>在非严格模式下，this会存在默认绑定或者隐式绑定指向window</p>
+            <p>在严格模式下，this不存在默认绑定或者隐式绑定，为undefined</p>
+            <p>在es6的class类中默认即为严格模式，当将一个函数引用赋值给某一个变量时，函数内部this会丢失。 </p>
+          </li>
+        </ol>
       </div>
     );
   }
