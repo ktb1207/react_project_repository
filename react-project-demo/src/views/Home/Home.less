@@ -1,0 +1,59 @@
+.home-page-wrp{
+  height:100%;
+  position: relative;
+  .home-header{
+    position: absolute;
+    top:0;
+    right:0;
+    left:0;
+    z-index: 4;
+    height:68px;
+    line-height: 68px;
+    text-align: right;
+    padding-right:36px;
+    background-color: #282c34;
+    .App-logo {
+      height: 36px;
+      pointer-events: none;
+    }
+  }
+  & > .home-left{
+    position: absolute;
+    z-index: 3;
+    top:0;
+    bottom:0;
+    left:0;
+    width:220px;
+    background-color: #12327a;
+    padding-top:68px;
+    color:#fff;
+    padding-bottom:24px;
+    overflow-y: auto;
+  }
+  & > .home-Content{
+    height:100%;
+    overflow: auto;
+    padding-top:68px;
+    padding-left:220px;
+    padding-bottom:24px;
+    & > .children-page{
+      height:auto;
+      padding:12px;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
