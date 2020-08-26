@@ -1,0 +1,27 @@
+
+/**
+ * 重置antd-mobile样式
+ * */ 
+
+// list
+.am-list{
+  .am-list-item{
+    padding-left:0px;
+  }
+  .am-list-line{
+    padding-left:30px;
+  }
+}
+// 走马灯
+.am-carousel{
+  height:100% !important;
+}
+.slider-frame{
+  height:100% !important;
+}
+.slider-list{
+  height:100% !important;
+}
+.slider-slide{
+  height:100% !important;
+}
