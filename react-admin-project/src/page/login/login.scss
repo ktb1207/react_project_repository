@@ -1,0 +1,18 @@
+/**
+ * login 样式表
+ * */ 
+
+.login-page{
+  background-image: linear-gradient(#e66465, #9198e5);
+  .login-from{
+    position: absolute;
+    top:50%;
+    left:50%;
+    z-index: 2;
+    transform: translate(-50%,-50%);
+    width:auto;
+    height:auto;
+    background-color: #fff;
+    border-radius: 10px;
+  }
+}
