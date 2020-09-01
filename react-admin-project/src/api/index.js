@@ -1,10 +1,10 @@
 import httpAxios from '../utils/configAxios.js';
-const serverEss = '/hrd-ess-service';
 const baseUrl = '/api';
-const apiVersion = '/v1';
 const api = {
-  getList: (data = {}) => httpAxios.get(`${serverEss}${baseUrl}${apiVersion}/ess/baseInfo`, {params: data}),
-  postData: (data) => httpAxios.post(`${serverEss}/add/news`, data)
+  getList: (data = {}) => httpAxios.get(`${baseUrl}/ess/baseInfo`, {params: data}),
+  postData: (data) => httpAxios.post(`${baseUrl}/add/news`, data),
+  // 用户登录
+  postUserLogin: data => httpAxios.post(`${baseUrl}/user/login`, data)
 }
 
 export default api;

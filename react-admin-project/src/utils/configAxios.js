@@ -31,6 +31,9 @@ httpAxios.interceptors.request.use(config => {
 
 // 响应拦截
 httpAxios.interceptors.response.use(res => {
+  if (res.data.code !== 0) {
+    meaasgeToast(res.data.message)
+  }
   if (res.status === 200) {
     return res;
   }
@@ -39,6 +42,9 @@ error => {
   if (error && error.response) {
     let msg = '请求出错';
     switch (error.response.status) {
+    case 400:
+      msg = error.response.data.message;
+      break;
     case 404:
       msg = '请求地址出错';
       break;
