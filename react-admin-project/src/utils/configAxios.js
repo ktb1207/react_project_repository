@@ -35,21 +35,18 @@ httpAxios.interceptors.response.use(res => {
     meaasgeToast(res.data.message)
   }
   if (res.status === 200) {
-    return res;
+    return res.data;
   }
 },
 error => {
   if (error && error.response) {
     let msg = '请求出错';
-    switch (error.response.status) {
+    switch (Number(error.response.status)) {
     case 400:
       msg = error.response.data.message;
       break;
     case 404:
       msg = '请求地址出错';
-      break;
-    case 408:
-      msg = '请求超时';
       break;
     case 500:
       msg = '服务器内部错误';
@@ -57,8 +54,10 @@ error => {
     case 502:
       msg = '服务器内部错误';
       break;
+    case 504:
+      msg = '请求超时';
+      break;
     default:
-      msg = '';
       break;
     }
     meaasgeToast(msg);
