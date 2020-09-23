@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Form, Input, Button, Checkbox } from 'antd';
+import util from '../../utils/utils.js';
 import api from '../../api/index'
 import './login.scss'
 
@@ -25,13 +26,22 @@ class About extends Component {
       password: values.password
     }
     const { history } = this.props;
-    await api.postUserLogin(postData).then(res => {
-      if (res.code === 0) {
-        const token = res.data.token;
-        console.log(token);
-      }
-    })
+    // try {
+    //   await api.postUserLogin(postData).then(res => {
+    //     if (res.code === 0) {
+    //       const token = res.data.token;
+    //       console.log(token);
+    //       this.setState({loginLoading: false},() => {
+    //         history.replace('/home')
+    //       })
+    //     }
+    //   })
+    // } catch (error) {
+    //   console.log(error)
+    // }
+    // this.setState({loginLoading: false})
     this.setState({loginLoading: false},() => {
+      util.setToken('asdfghjk123qwertyu')
       history.replace('/home')
     })
   }

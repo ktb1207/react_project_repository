@@ -1,3 +1,6 @@
+/**
+ * 由于添加路由拦截，该路由暂时不用
+ * */ 
 import React, { Component } from 'react';
 import {HashRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
 import AsyncLazyLoad from '../components/AsyncLazyLoad.js';
