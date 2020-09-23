@@ -9,10 +9,13 @@ class FrontendAuth extends Component {
     const { routerConfig, location } = this.props;
     const { pathname } = location;
     const isLogin = util.getToken();
-    // 如果该路由不用进行权限校验
+    // 查找路由项
     const targetRouterConfig = routerConfig.find(
       (item) => item.path === pathname
     );
+    console.log('匹配路由项：')
+    console.log(targetRouterConfig)
+    // 如果该路由不用进行权限校验
     if (targetRouterConfig && !targetRouterConfig.auth && !isLogin) {
       const { component } = targetRouterConfig;
       console.log(targetRouterConfig)
@@ -21,7 +24,7 @@ class FrontendAuth extends Component {
 
     if (isLogin) {
       // 如果是登陆状态，想要跳转到登陆，重定向到登录主页
-      if (pathname === "/login") {
+      if (pathname === "/login" || pathname === '/') {
         return <Redirect to="/home" />;
       } else {
         // 如果路由合法，就跳转到相应的路由
