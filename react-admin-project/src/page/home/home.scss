@@ -1,0 +1,20 @@
+@import '../../styles/variable.scss';
+.home-page{
+  display: flex;
+  flex-direction: column;
+  header{
+    flex: 0 0 $header-h;
+    border-bottom: 1px solid $gray3;
+  }
+  .home-content{
+    flex:1 1 auto;
+    display: flex;
+    .left-menu-wrp{
+      flex: 0 0 auto;
+      border-right:1px solid $gray3;
+    }
+    .right-container{
+      flex: 1 1 auto;
+    }
+  }
+}

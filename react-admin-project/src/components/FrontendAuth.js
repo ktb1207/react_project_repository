@@ -4,6 +4,7 @@ import util from '../utils/utils.js';
 class FrontendAuth extends Component {
   constructor(props) {
     super(props)
+    this.state = {}
   }
   render() {
     const { routerConfig, location } = this.props;

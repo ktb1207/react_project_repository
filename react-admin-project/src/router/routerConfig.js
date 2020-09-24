@@ -5,6 +5,7 @@ import routerMap from './routerMap.js';
 class RouterConfig extends Component {
   constructor(props) {
     super(props)
+    this.state = {}
   }
   
   render() {
