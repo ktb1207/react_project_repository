@@ -1,8 +1,10 @@
+
 import React, { Component } from 'react'
 import { Form, Input, Button, Checkbox } from 'antd';
 import util from '../../utils/utils.js';
 import api from '../../api/index'
 import './login.scss'
+const querystring = require('querystring');
 
 const layout = {
   labelCol: { span: 8 },
@@ -16,15 +18,33 @@ class About extends Component {
     super(props)
     this.state = {
       loginLoading: false,
+      initFormData: {
+        remember: true, 
+        username: '',
+        password: ''
+      }
+    }
+    this.formRef = React.createRef();
+  }
+  componentDidMount () {
+    const rememberLogin = util.getCookie('system_remember_login');
+    if (rememberLogin) {
+      const parseInfo = querystring.parse(rememberLogin)
+      this.setState((state) => ({
+        initFormData: {...state.initFormData, username: parseInfo.row1, password: parseInfo.row2}
+      }),() => {
+        // 重置表单，表单初始值生效
+        this.formRef.current.resetFields();
+      })
     }
   }
   onFinish = async(values) => {
-    console.log(values)
     this.setState({loginLoading: true})
     const postData = {
       name: values.username,
       password: values.password
     }
+    const isRemember = values.remember;
     const { history } = this.props;
     // try {
     //   await api.postUserLogin(postData).then(res => {
@@ -42,6 +62,10 @@ class About extends Component {
     // this.setState({loginLoading: false})
     this.setState({loginLoading: false},() => {
       util.setToken('asdfghjk123qwertyu')
+      if (isRemember) {
+        const cookieValue = `row1=${values.username}&row2=${values.password}`
+        util.setCookie('system_remember_login', cookieValue)
+      }
       history.replace('/home')
     })
   }
@@ -53,9 +77,10 @@ class About extends Component {
       <div className="full-page login-page">
         <div className="login-from">
           <Form
+            ref={this.formRef}
             {...layout}
             name="basic"
-            initialValues={{ remember: true }}
+            initialValues={this.state.initFormData}
             onFinish={this.onFinish}
             onFinishFailed={this.onFinishFailed}
           >
@@ -72,7 +97,7 @@ class About extends Component {
               name="password"
               rules={[{ required: true, message: '请输入密码!' }]}
             >
-              <Input.Password />
+              <Input.Password/>
             </Form.Item>
 
             <Form.Item {...tailLayout} name="remember" valuePropName="checked">
