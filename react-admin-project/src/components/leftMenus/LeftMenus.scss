@@ -1,3 +1,14 @@
 .left-meuns-components{
-  
+  height:100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  .top-menu{
+    flex:1 1 auto;
+    overflow-y: auto;
+  }
+  .bottom-button{
+    flex: 0 0 auto;
+    text-align: right;
+  }
 }

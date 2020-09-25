@@ -21,7 +21,17 @@ const routerMap = [
     path: "/home", 
     name: "Home", 
     auth: true,
-    component: Home
+    component: Home,
+    children: [
+      {
+        path: "/home/orderManage",
+        name: "orderManage",
+      },
+      {
+        path: "/home/businessManage",
+        name: "businessManage",
+      }
+    ]
   },
   {
     path: "/about", 

@@ -12,7 +12,13 @@ class FrontendAuth extends Component {
     const isLogin = util.getToken();
     // 查找路由项
     const targetRouterConfig = routerConfig.find(
-      (item) => item.path === pathname
+      (item) => {
+        if (!item.children) {
+          return item.path === pathname
+        } else {
+          return pathname.includes(item.path) === true;
+        }
+      }
     );
     console.log('匹配路由项：')
     console.log(targetRouterConfig)
