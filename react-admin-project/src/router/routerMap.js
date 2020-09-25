@@ -24,6 +24,10 @@ const routerMap = [
     component: Home,
     children: [
       {
+        path: "/home/userManage",
+        name: "userManage",
+      },
+      {
         path: "/home/orderManage",
         name: "orderManage",
       },
@@ -42,7 +46,7 @@ const routerMap = [
   {
     path: "/error", 
     name: "Error", 
-    auth: true,
+    auth: false,
     component: ErrorPage
   }
 ]

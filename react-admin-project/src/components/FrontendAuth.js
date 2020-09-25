@@ -20,12 +20,9 @@ class FrontendAuth extends Component {
         }
       }
     );
-    console.log('匹配路由项：')
-    console.log(targetRouterConfig)
     // 如果该路由不用进行权限校验
     if (targetRouterConfig && !targetRouterConfig.auth && !isLogin) {
       const { component } = targetRouterConfig;
-      console.log(targetRouterConfig)
       return <Route exact path={pathname} component={component} />;
     }
 
@@ -36,9 +33,10 @@ class FrontendAuth extends Component {
       } else {
         // 如果路由合法，就跳转到相应的路由
         if (targetRouterConfig) {
-          return (
-            <Route path={pathname} component={targetRouterConfig.component} />
-          );
+          if (targetRouterConfig.children && targetRouterConfig.children.length > 0) {
+            return <Route path={pathname} component={targetRouterConfig.component} />
+          }
+          return <Route exact path={pathname} component={targetRouterConfig.component} />
         } else {
           // 如果路由不合法，重定向到 error 页面
           return <Redirect to="/error" />;

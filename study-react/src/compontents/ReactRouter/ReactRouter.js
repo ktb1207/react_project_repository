@@ -95,6 +95,25 @@ class ReactRouter extends Component {
                         </p>
                     </li>
                 </ol>
+                <h3>4.关于route的一些使用注意点：</h3>
+                <ol>
+                    <li>
+                        <p>Route标签中的exact属性：</p>
+                        <p>exact,代表精准匹配,默认为false，如果为true时，需要和路由相同时才能匹配，但是如果有斜杠也是可以匹配上的。</p>
+                        <p>如果在父路由中加了exact,，是不能匹配子路由的,建议在子路由中加</p>
+                        <p>http://localhost:3000/about,可以访问about页面</p>
+                        <p>http://localhost:3000/about/*,也可以访问about页面</p>
+                        <p>这就需要exact限制</p>
+                        <p>在Route配置上exact属性</p>
+                        <p>http://localhost:3000/about/*,就无法访问about页面</p>
+                    </li>
+                    <li>
+                        <p>Route标签中的strict</p>
+                        <p>默认为false，如果为true时，路由后面没有斜杠而url中有斜杠，是不匹配的</p>
+                        <p>http://localhost:3000/about,可以访问about页面</p>
+                        <p>http://localhost:3000/about/,不可以访问about页面</p>
+                    </li>
+                </ol>
             </div>
         )
     }

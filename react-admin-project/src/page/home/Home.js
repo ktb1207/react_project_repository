@@ -37,12 +37,21 @@ class Home extends Component {
                   }}
                 ></Route>
                 <Route
+                  exact
+                  path={'/home/userManage'}
+                  render={props => {
+                    return <UserManage {...props}></UserManage>;
+                  }}
+                ></Route>
+                <Route
+                  exact
                   path={`/home/orderManage`}
                   render={props => {
                     return <OrderManage {...props}></OrderManage>;
                   }}
                 ></Route>
                 <Route
+                  exact
                   path={`/home/businessManage`}
                   render={props => {
                     return <BusinessManage {...props}></BusinessManage>;

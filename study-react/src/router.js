@@ -9,6 +9,7 @@ import './router.less';
 
 import Home from './views/home/HomePage';
 import LoginPage from './views/login/Login';
+import About from './views/about/About';
 
 class RouterConfig extends Component {
   render() {
@@ -19,6 +20,7 @@ class RouterConfig extends Component {
             <Route exact path="/" component={LoginPage}></Route>
             <Route path="/home" component={Home}></Route>
             <Route path="/login" component={LoginPage}></Route>
+            <Route path="/about" exact strict component={About}></Route>
             {/* 错误路由处理 */}
             <Redirect from="/*" to="/" />
           </Switch>
