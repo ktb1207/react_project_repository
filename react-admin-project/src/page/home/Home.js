@@ -3,6 +3,7 @@ import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import './home.scss'
 import LeftMenus from '../../components/leftMenus/LeftMenus';
 import AsyncLazyLoad from '../../components/AsyncLazyLoad.js';
+import HeaderFeature from '../../components/headerFeature/HeaderFeature';
 const UserManage = AsyncLazyLoad(() => import('../../views/userManage/UserManage.js'))
 const OrderManage = AsyncLazyLoad(() => import('../../views/orderManage/OrderManage.js'))
 const BusinessManage = AsyncLazyLoad(() => import('../../views/businessManage/BusinessManage.js'))
@@ -21,7 +22,9 @@ class Home extends Component {
     console.log(match)
     return (
       <div className="full-page home-page">
-        <header></header>
+        <header>
+          <HeaderFeature />
+        </header>
         <div className="home-content">
           <div className="left-menu-wrp">
             <LeftMenus></LeftMenus>
