@@ -46,28 +46,34 @@ class About extends Component {
     }
     const isRemember = values.remember;
     const { history } = this.props;
-    // try {
-    //   await api.postUserLogin(postData).then(res => {
-    //     if (res.code === 0) {
-    //       const token = res.data.token;
-    //       console.log(token);
-    //       this.setState({loginLoading: false},() => {
-    //         history.replace('/home')
-    //       })
-    //     }
-    //   })
-    // } catch (error) {
-    //   console.log(error)
-    // }
-    // this.setState({loginLoading: false})
-    this.setState({loginLoading: false},() => {
-      util.setToken('asdfghjk123qwertyu')
-      if (isRemember) {
-        const cookieValue = `row1=${values.username}&row2=${values.password}`
-        util.setCookie('system_remember_login', cookieValue)
-      }
-      history.replace('/home')
-    })
+    try {
+      await api.postUserLogin(postData).then(res => {
+        if (res.code === 0) {
+          const token = res.data.token;
+          // 登录token
+          util.setToken(token)
+          // 记住用户名密码
+          if (isRemember) {
+            const cookieValue = `row1=${values.username}&row2=${values.password}`
+            util.setCookie('system_remember_login', cookieValue)
+          }
+          // 跳转home页
+          this.setState({loginLoading: false},() => {
+            history.replace('/home')
+          })
+        }
+      })
+    } catch (error) {
+      console.log(error)
+    }
+    // this.setState({loginLoading: false},() => {
+    //   util.setToken('asdfghjk123qwertyu')
+    //   if (isRemember) {
+    //     const cookieValue = `row1=${values.username}&row2=${values.password}`
+    //     util.setCookie('system_remember_login', cookieValue)
+    //   }
+    //   history.replace('/home')
+    // })
   }
   onFinishFailed = (failes) => {
     console.log(failes)
