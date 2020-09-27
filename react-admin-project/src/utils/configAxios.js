@@ -1,11 +1,15 @@
 import axios from 'axios';
-
+import util from './utils';
+const localToken = util.getToken();
 const baseUrl = process.env.NODE_ENV === 'development' ? '' : process.env.REACT_APP_BASE_URL;
 
 const httpAxios = axios.create({
   baseURL: baseUrl,
   timeout:10000,
   withCredentials: true,
+  headers:{
+    Authorization: localToken
+  }
 })
 // 请求拦截
 httpAxios.interceptors.request.use(config => {

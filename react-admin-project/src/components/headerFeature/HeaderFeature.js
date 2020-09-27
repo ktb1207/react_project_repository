@@ -1,5 +1,5 @@
 import './HeaderFeatrue.scss';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
     LogoutOutlined,
     FullscreenOutlined,
@@ -17,6 +17,10 @@ function HeaderFeature() {
             exitScreen()
         }
         setFullScreen(!fullScreenState)
+    }
+    // 退出登录
+    const loginOut = ()=> {
+        
     }
     //全屏
     function fullScreen(){
@@ -61,7 +65,7 @@ function HeaderFeature() {
                         fullScreenState ? <FullscreenExitOutlined /> : <FullscreenOutlined />
                     }
                 </div>
-                <div className="icon-wrp" title="退出登录">
+                <div className="icon-wrp" title="退出登录" onClick={loginOut}>
                     <LogoutOutlined />
                 </div>
             </div>
