@@ -6,7 +6,7 @@ import {
     FullscreenExitOutlined,
     UnlockOutlined
 } from '@ant-design/icons';
-
+import api from '../../api/index';
 function HeaderFeature() {
     // 全屏状态
     const [fullScreenState, setFullScreen] = useState(false);
@@ -19,8 +19,17 @@ function HeaderFeature() {
         setFullScreen(!fullScreenState)
     }
     // 退出登录
-    const loginOut = ()=> {
-        
+    const loginOut = async()=> {
+        const postData = {
+            name: 'tom'
+        }
+        try {
+            await api.postUserQuit(postData).then(res => {
+                console.log(res);
+            })
+        } catch(err) {
+            console.log(err)
+        }
     }
     //全屏
     function fullScreen(){

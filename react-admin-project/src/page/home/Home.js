@@ -19,7 +19,6 @@ class Home extends Component {
   
   render (){
     const match = this.props.match;
-    console.log(match)
     return (
       <div className="full-page home-page">
         <header>
