@@ -1,5 +1,7 @@
 import './HeaderFeatrue.scss';
 import React, { useState } from 'react';
+import { connect } from "react-redux";
+import { showLoadingAction, hideLoadingAction } from '../../store/action';
 import {
     LogoutOutlined,
     FullscreenOutlined,
@@ -7,7 +9,7 @@ import {
     UnlockOutlined
 } from '@ant-design/icons';
 import api from '../../api/index';
-function HeaderFeature() {
+const HeaderFeature = ({showSystemLoading, hideSystemLoading}) => {
     // 全屏状态
     const [fullScreenState, setFullScreen] = useState(false);
     const fullScreenSwitch = () => {
@@ -19,17 +21,21 @@ function HeaderFeature() {
         setFullScreen(!fullScreenState)
     }
     // 退出登录
-    const loginOut = async()=> {
-        const postData = {
-            name: 'tom'
-        }
-        try {
-            await api.postUserQuit(postData).then(res => {
-                console.log(res);
-            })
-        } catch(err) {
-            console.log(err)
-        }
+    const loginOut = ()=> {
+        // const postData = {
+        //     name: 'tom'
+        // }
+        // try {
+        //     await api.postUserQuit(postData).then(res => {
+        //         console.log(res);
+        //     })
+        // } catch(err) {
+        //     console.log(err)
+        // }
+        showSystemLoading();
+        setTimeout(() => {
+            hideSystemLoading();
+        }, 3000)
     }
     //全屏
     function fullScreen(){
@@ -82,4 +88,18 @@ function HeaderFeature() {
     )
 }
 
-export default HeaderFeature;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        showSystemLoading: () => {
+            dispatch(showLoadingAction())
+        },
+        hideSystemLoading: () => {
+            dispatch(hideLoadingAction())
+        }
+    }
+}
+
+export default connect(
+    null,
+    mapDispatchToProps
+)(HeaderFeature)

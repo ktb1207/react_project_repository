@@ -12,16 +12,14 @@ export const SHOW_ERROR = 'SHOW_ERROR';
 /**
 * action 创建函数
 */
-export function hideLoadingAction(state) {
+export function hideLoadingAction() {
   return {
     type: HIDE_LOADING,
-    state,
   }
 }
-export function showLoadingAction(state) {
+export function showLoadingAction() {
   return {
     type: SHOW_LOADING,
-    state,
   }
 }
 export function showErrorAction(message) {

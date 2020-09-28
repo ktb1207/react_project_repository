@@ -18,7 +18,6 @@ class Home extends Component {
   }
   
   render (){
-    const match = this.props.match;
     return (
       <div className="full-page home-page">
         <header>
@@ -69,5 +68,6 @@ class Home extends Component {
     )
   }
 }
+
 
 export default Home;
