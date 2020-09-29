@@ -36,6 +36,12 @@ httpAxios.interceptors.response.use(res => {
   if (res.data.code !== 0) {
     meaasgeToast(res.data.message)
   }
+  if (res.data.code === -2 || res.data.code === -3) {
+    setTimeout(() => {
+      util.clearToken();
+      window.location.hash="#/login"
+    },3000)
+  }
   if (res.status === 200) {
     return res.data;
   }

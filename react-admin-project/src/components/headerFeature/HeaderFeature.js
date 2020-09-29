@@ -9,6 +9,7 @@ import {
     UnlockOutlined
 } from '@ant-design/icons';
 import api from '../../api/index';
+import util from '../../utils/utils';
 const HeaderFeature = ({showSystemLoading, hideSystemLoading}) => {
     // 全屏状态
     const [fullScreenState, setFullScreen] = useState(false);
@@ -21,21 +22,25 @@ const HeaderFeature = ({showSystemLoading, hideSystemLoading}) => {
         setFullScreen(!fullScreenState)
     }
     // 退出登录
-    const loginOut = ()=> {
-        // const postData = {
-        //     name: 'tom'
-        // }
-        // try {
-        //     await api.postUserQuit(postData).then(res => {
-        //         console.log(res);
-        //     })
-        // } catch(err) {
-        //     console.log(err)
-        // }
+    const loginOut = async()=> {
         showSystemLoading();
-        setTimeout(() => {
-            hideSystemLoading();
-        }, 3000)
+        const postData = {
+            name: 'tom'
+        }
+        try {
+            await api.postUserQuit(postData).then(res => {
+                if(res.code === 0){
+                    util.clearToken();
+                }
+            })
+        } catch(err) {
+            console.log(err)
+        }
+        hideSystemLoading();
+        // showSystemLoading();
+        // setTimeout(() => {
+        //     hideSystemLoading();
+        // }, 3000)
     }
     //全屏
     function fullScreen(){

@@ -6,6 +6,9 @@ class FrontendAuth extends Component {
     super(props)
     this.state = {}
   }
+  shouldComponentUpdate() {
+    return true;
+  }
   render() {
     const { routerConfig, location } = this.props;
     const { pathname } = location;
@@ -25,7 +28,6 @@ class FrontendAuth extends Component {
       const { component } = targetRouterConfig;
       return <Route exact path={pathname} component={component} />;
     }
-
     if (isLogin) {
       // 如果是登陆状态，想要跳转到登陆，重定向到登录主页
       if (pathname === "/login" || pathname === '/') {
