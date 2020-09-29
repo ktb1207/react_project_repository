@@ -25,6 +25,16 @@ const util = {
     exp.setTime(exp.getTime() - 1);
     const cval = this.getCookie(name);
     if(!cval) document.cookie=name +"="+cval+";expires="+exp.toUTCString();
+  },
+  hasClass: (node, className) => {
+    if (node.getAttribute('class')) {
+      // 存在class属性
+      if  (node.getAttribute( 'class' ).indexOf( className ) > -1) {
+        return true;   
+      }
+      return false;
+    }
+    return false;
   }
 }
 

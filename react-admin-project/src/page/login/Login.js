@@ -65,7 +65,9 @@ class About extends Component {
       })
     } catch (error) {
       console.log(error)
+      this.setState({loginLoading: false})
     }
+
     // this.setState({loginLoading: false},() => {
     //   util.setToken('asdfghjk123qwertyu')
     //   if (isRemember) {

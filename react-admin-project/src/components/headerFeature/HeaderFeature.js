@@ -69,7 +69,7 @@ const HeaderFeature = ({showSystemLoading, hideSystemLoading}) => {
     return (
         <div className="header-feature-component">
             <div className="header-left">
-                自助洗衣后台管理系统
+                后台管理系统
             </div>
             <div className="header-right">
                 <div className="icon-wrp">

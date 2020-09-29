@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {message} from 'antd';
 import util from './utils';
 const baseUrl = process.env.NODE_ENV === 'development' ? '' : process.env.REACT_APP_BASE_URL;
 
@@ -67,7 +68,7 @@ error => {
 })
 
 function meaasgeToast (msg) {
-  alert(msg)
+  message.error(msg);
 }
 
 export default httpAxios;
