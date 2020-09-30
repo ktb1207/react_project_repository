@@ -28,40 +28,42 @@ class Home extends Component {
             <LeftMenus></LeftMenus>
           </div>
           <div className="right-container">
-            <Router>
-              <Switch>
-                <Route
-                  exact
-                  path={'/home'}
-                  render={props => {
-                    return <UserManage {...props}></UserManage>;
-                  }}
-                ></Route>
-                <Route
-                  exact
-                  path={'/home/userManage'}
-                  render={props => {
-                    return <UserManage {...props}></UserManage>;
-                  }}
-                ></Route>
-                <Route
-                  exact
-                  path={`/home/orderManage`}
-                  render={props => {
-                    return <OrderManage {...props}></OrderManage>;
-                  }}
-                ></Route>
-                <Route
-                  exact
-                  path={`/home/businessManage`}
-                  render={props => {
-                    return <BusinessManage {...props}></BusinessManage>;
-                  }}
-                ></Route>
-                {/* 错误路由处理 */}
-                <Redirect from={`/home/*`} to="/home" />
-              </Switch>
-            </Router>
+            <div className="home-router-shadow">
+              <Router>
+                <Switch>
+                  <Route
+                    exact
+                    path={'/home'}
+                    render={props => {
+                      return <UserManage {...props}></UserManage>;
+                    }}
+                  ></Route>
+                  <Route
+                    exact
+                    path={'/home/userManage'}
+                    render={props => {
+                      return <UserManage {...props}></UserManage>;
+                    }}
+                  ></Route>
+                  <Route
+                    exact
+                    path={`/home/orderManage`}
+                    render={props => {
+                      return <OrderManage {...props}></OrderManage>;
+                    }}
+                  ></Route>
+                  <Route
+                    exact
+                    path={`/home/businessManage`}
+                    render={props => {
+                      return <BusinessManage {...props}></BusinessManage>;
+                    }}
+                  ></Route>
+                  {/* 错误路由处理 */}
+                  <Redirect from={`/home/*`} to="/home" />
+                </Switch>
+              </Router>
+            </div>
           </div>
         </div>
       </div>

@@ -11,9 +11,21 @@
     .left-menu-wrp{
       flex: 0 0 auto;
       border-right:1px solid $gray3;
+      overflow-y: auto;
     }
     .right-container{
       flex: 1 1 auto;
+      background-color: $gray2;
+      padding:12px;
+      .home-router-shadow{
+        height: 100%;
+        width: 100%;
+        padding:12px;
+        overflow: hidden;
+        background-color: #fff;
+        border-radius: 4px;
+        box-shadow: 0 0 8px 4px #ccc;
+      }
     }
   }
 }
