@@ -1,0 +1,19 @@
+@import '../../styles/variable.scss';
+.header-title-row{
+    padding-top:6px;
+    padding-right:12px;
+    padding-bottom: 12px;
+    border-bottom:1px solid $gray4;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .left-title{
+        padding-left:12px;
+        font-size:14px;
+        color:$gray5;
+        border-left:3px solid $blue-color;
+    }
+    .right-wrp{
+        
+    }
+}

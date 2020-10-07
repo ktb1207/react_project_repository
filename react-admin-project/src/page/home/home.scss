@@ -21,11 +21,24 @@
         height: 100%;
         width: 100%;
         padding:12px;
-        overflow: hidden;
+        overflow: auto;
         background-color: #fff;
         border-radius: 4px;
         box-shadow: 0 0 8px 4px #ccc;
       }
+    }
+  }
+  // 菜单子页面
+  .menu-router-page{
+    height:100%;
+    display: flex;
+    flex-direction: column;
+    .menu-page-header{
+      flex: 0 0 auto;
+    }
+    .menu-page-content{
+      flex: 1 1 auto;
+      padding:12px;
     }
   }
 }

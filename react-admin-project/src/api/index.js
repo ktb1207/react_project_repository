@@ -7,6 +7,8 @@ const api = {
   postUserLogin: data => httpAxios.post(`${baseUrl}/user/login`, data),
   // 退出
   postUserQuit: data => httpAxios.post(`${baseUrl}/user/quitLogin`, data),
+  // 获取管理员列表数据
+  getUserData: () => httpAxios.get(`${baseUrl}/user/list`)
 }
 
 export default api;
