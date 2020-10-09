@@ -2,32 +2,73 @@ import './UserManage.scss';
 import React, { useState, useEffect }from 'react';
 import { connect } from "react-redux";
 import HeaderTitle from '../../components/headerTitle/HeaderTitle';
-import { Button, Table, Modal} from 'antd';
+import { Button, Table, Modal, Form, Input, Divider} from 'antd';
 import {PlusOutlined, DeleteOutlined, EditOutlined} from '@ant-design/icons';
 import { showLoadingAction, hideLoadingAction } from '../../store/action';
 import api from '../../api/index';
 const UserManage = ({showSystemLoading, hideSystemLoading})=> {
   const [userData, setUserData] = useState([]); // 表格数据
+  const [tableLoading, setTableLoading] = useState(false); // 表格loading
+  const [checkTableArr, setCheckTableArr] = useState([]); // 表格勾选数据
   const [modalVisible, setModalVisible] = useState(false); // modal框显示
   const [addOrEdit, setAddOrEdit] = useState(''); // 添加编辑状态
+  const [addBtnLoading, setAddBtnLoading] = useState(false); // 添加按钮loading
   // 获取管理员列表数据
-  const fetchUserData = async() => {
-    showSystemLoading();
+  const fetchUserData = async(come) => {
+    if (come === 'initPage') {
+      showSystemLoading();
+    }
+    if (come === 'addFresh') {
+      setTableLoading(true)
+    }
     try {
       await api.getUserData().then(res => {
         if (res.code === 0) {
-          setUserData(userData.concat(res.data.list))
+          setUserData([...res.data.list])
         }
       })
     } catch(err) {
       console.log(err)
     }
-    hideSystemLoading();
+    if (come === 'initPage') {
+      hideSystemLoading();
+    }
+    if (come === 'addFresh') {
+      setTableLoading(false)
+    }
   };
-  // add
+  // add open modal
   const addClick = () => {
     setAddOrEdit('添加')
     setModalVisible(true)
+  };
+  // 确认添加
+  const sureAddUser = async(values) => {
+    setAddBtnLoading(true)
+    let postData = {
+      name: values.userName,
+      password: values.password,
+    }
+    try {
+      await api.postAddUser(postData).then(res => {
+        if (res.code === 0) {
+          setModalVisible(false)
+          fetchUserData('addFresh')
+        }
+      })
+    } catch(err) {
+      console.log(err)
+    }
+    setAddBtnLoading(false)
+  }
+  // 表格勾选
+  const tableSelectChange = (keys) => {
+    setCheckTableArr([...keys])
+    console.log(keys)
+  };
+  // 删除
+  const deleteClick = () => {
+    console.log(checkTableArr)
   };
   // edit
   const editClick = (value,data,index) => {
@@ -37,16 +78,13 @@ const UserManage = ({showSystemLoading, hideSystemLoading})=> {
     console.log(data)
     console.log(index)
   };
-  // modal框确认
-  const modalOk = () => {};
-  // modal取消
-  const modalCancel = () => {
+  // modal close
+  const cancelModal = () => {
     setModalVisible(false)
-  }; 
+  }
   useEffect(() => {
-    fetchUserData()
+    fetchUserData('initPage')
   },[])
-
   const columns = [
     {
       title: '用户名',
@@ -66,6 +104,13 @@ const UserManage = ({showSystemLoading, hideSystemLoading})=> {
       )
     },
   ];
+  const layout = {
+    labelCol: { span: 8 },
+    wrapperCol: { span: 12 },
+  };
+  const tailLayout = {
+    wrapperCol: { span: 24 },
+  };
   return (
     <div className="menu-router-page">
       <div className="menu-page-header">
@@ -73,19 +118,21 @@ const UserManage = ({showSystemLoading, hideSystemLoading})=> {
           <span name="left">系统管理员列表</span>
           <div name="right">
             <Button type="primary" onClick={addClick}><PlusOutlined />添加</Button>
-            <Button type="primary" danger><DeleteOutlined />删除</Button>
+            <Button type="primary" danger disabled={checkTableArr.length===0} onClick={deleteClick}><DeleteOutlined />删除</Button>
           </div>
         </HeaderTitle>
       </div>
       <div className="menu-page-content">
         <Table 
           rowKey="id"
+          loading={tableLoading}
           bordered
           rowSelection={{
-            type: 'checkbox'
+            type: 'checkbox',
+            onChange: tableSelectChange
           }}
           dataSource={userData} 
-          columns={columns} />;
+          columns={columns} />
       </div>
       {/* 添加-编辑modal */}
       <Modal
@@ -96,10 +143,38 @@ const UserManage = ({showSystemLoading, hideSystemLoading})=> {
           maskClosable={false}
           keyboard={false}
           destroyOnClose={true}
-          onOk={modalOk}
-          onCancel={modalCancel}
+          footer={null}
         >
-          
+          <Form
+            {...layout}
+            name="basic"
+            initialValues={{}}
+            onFinish={sureAddUser}
+          >
+            <Form.Item
+              label="用户名"
+              name="userName"
+              rules={[{ required: true, message: '必填' }]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              label="密码"
+              name="password"
+              rules={[{ required: true, message: '必填' }]}
+            >
+              <Input.Password />
+            </Form.Item>
+            <Divider />
+            <Form.Item {...tailLayout}>
+              <Button loading={addBtnLoading} type="primary" htmlType="submit" className="modal-form-sure">
+                确定
+              </Button>
+              <Button htmlType="button" className="modal-form-cancel" onClick={cancelModal}>
+                取消
+              </Button>
+            </Form.Item>
+          </Form>
         </Modal>
     </div>
   )

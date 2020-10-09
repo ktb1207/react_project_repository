@@ -8,7 +8,9 @@ const api = {
   // 退出
   postUserQuit: data => httpAxios.post(`${baseUrl}/user/quitLogin`, data),
   // 获取管理员列表数据
-  getUserData: () => httpAxios.get(`${baseUrl}/user/list`)
+  getUserData: () => httpAxios.get(`${baseUrl}/user/list`),
+  // 新增管理员用户
+  postAddUser: (data) => httpAxios.post(`${baseUrl}/user/addUser`, data)
 }
 
 export default api;
