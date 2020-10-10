@@ -2,10 +2,11 @@ import './UserManage.scss';
 import React, { useState, useEffect }from 'react';
 import { connect } from "react-redux";
 import HeaderTitle from '../../components/headerTitle/HeaderTitle';
-import { Button, Table, Modal, Form, Input, Divider} from 'antd';
+import { Button, Table, Modal, Form, Input, Divider,message} from 'antd';
 import {PlusOutlined, DeleteOutlined, EditOutlined} from '@ant-design/icons';
 import { showLoadingAction, hideLoadingAction } from '../../store/action';
 import api from '../../api/index';
+let editRowId = '';
 const UserManage = ({showSystemLoading, hideSystemLoading})=> {
   const [userData, setUserData] = useState([]); // 表格数据
   const [tableLoading, setTableLoading] = useState(false); // 表格loading
@@ -13,12 +14,14 @@ const UserManage = ({showSystemLoading, hideSystemLoading})=> {
   const [modalVisible, setModalVisible] = useState(false); // modal框显示
   const [addOrEdit, setAddOrEdit] = useState(''); // 添加编辑状态
   const [addBtnLoading, setAddBtnLoading] = useState(false); // 添加按钮loading
+  // antd form
+  const [form] = Form.useForm();
   // 获取管理员列表数据
   const fetchUserData = async(come) => {
     if (come === 'initPage') {
       showSystemLoading();
     }
-    if (come === 'addFresh') {
+    if (come === 'freshTable') {
       setTableLoading(true)
     }
     try {
@@ -33,7 +36,7 @@ const UserManage = ({showSystemLoading, hideSystemLoading})=> {
     if (come === 'initPage') {
       hideSystemLoading();
     }
-    if (come === 'addFresh') {
+    if (come === 'freshTable') {
       setTableLoading(false)
     }
   };
@@ -45,19 +48,38 @@ const UserManage = ({showSystemLoading, hideSystemLoading})=> {
   // 确认添加
   const sureAddUser = async(values) => {
     setAddBtnLoading(true)
-    let postData = {
-      name: values.userName,
-      password: values.password,
-    }
-    try {
-      await api.postAddUser(postData).then(res => {
-        if (res.code === 0) {
-          setModalVisible(false)
-          fetchUserData('addFresh')
-        }
-      })
-    } catch(err) {
-      console.log(err)
+    if (addOrEdit === '添加') {
+      let postData = {
+        name: values.userName,
+        password: values.password,
+      }
+      try {
+        await api.postAddUser(postData).then(res => {
+          if (res.code === 0) {
+            setModalVisible(false)
+            fetchUserData('freshTable')
+          }
+        })
+      } catch(err) {
+        console.log(err)
+      }
+    } else {
+      // 修改
+      const postData = {
+        id:editRowId,
+        userName: values.userName,
+        password: values.password
+      }
+      try {
+        await api.postEditUser(postData).then(res => {
+          if (res.code === 0) {
+            setModalVisible(false)
+            fetchUserData('freshTable')
+          }
+        })
+      } catch(err) {
+        console.log(err)
+      }
     }
     setAddBtnLoading(false)
   }
@@ -67,16 +89,31 @@ const UserManage = ({showSystemLoading, hideSystemLoading})=> {
     console.log(keys)
   };
   // 删除
-  const deleteClick = () => {
-    console.log(checkTableArr)
+  const deleteClick = async() => {
+    showSystemLoading();
+    const postData = {
+      ids: checkTableArr
+    }
+    try {
+      await api.postDeleteUser(postData).then(res =>{
+        if (res.code === 0) {
+          message.success('删除成功！')
+          fetchUserData('freshTable')
+        }
+      })
+    } catch(err) {
+      console.log(err)
+    }
+    hideSystemLoading();
   };
   // edit
-  const editClick = (value,data,index) => {
+  const editClick = (value) => {
     setAddOrEdit('修改')
     setModalVisible(true)
+    form.setFieldsValue({userName: value['user_name'],password: value['user_password']});
+    editRowId = value.id;
+    console.log(editRowId)
     console.log(value)
-    console.log(data)
-    console.log(index)
   };
   // modal close
   const cancelModal = () => {
@@ -148,6 +185,7 @@ const UserManage = ({showSystemLoading, hideSystemLoading})=> {
           <Form
             {...layout}
             name="basic"
+            form={form}
             initialValues={{}}
             onFinish={sureAddUser}
           >

@@ -10,7 +10,11 @@ const api = {
   // 获取管理员列表数据
   getUserData: () => httpAxios.get(`${baseUrl}/user/list`),
   // 新增管理员用户
-  postAddUser: (data) => httpAxios.post(`${baseUrl}/user/addUser`, data)
+  postAddUser: (data) => httpAxios.post(`${baseUrl}/user/addUser`, data),
+  // 删除管理员
+  postDeleteUser: (data) => httpAxios.post(`${baseUrl}/user/deleteUser`, data),
+  // 修改管理员
+  postEditUser: (data) => httpAxios.post(`${baseUrl}/user/updateUser`, data),
 }
 
 export default api;
