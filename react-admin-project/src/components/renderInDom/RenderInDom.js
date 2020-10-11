@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import ReactDom from 'react-dom';
 import PropTypes from 'prop-types';
 import util from '../../utils/utils';
