@@ -15,6 +15,8 @@ const api = {
   postDeleteUser: (data) => httpAxios.post(`${baseUrl}/user/deleteUser`, data),
   // 修改管理员
   postEditUser: (data) => httpAxios.post(`${baseUrl}/user/updateUser`, data),
+  // 运营商列表
+  getBusinessData: () => httpAxios.get(`${baseUrl}/business/list`),
 }
 
 export default api;

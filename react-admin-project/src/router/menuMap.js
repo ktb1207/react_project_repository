@@ -11,11 +11,6 @@ const menuMap = [
     name: '用户管理'
   },
   {
-    path: '/home/orderManage',
-    icon: DesktopOutlined,
-    name: '订单管理'
-  },
-  {
     subpath:'businessSub',
     expand: true,
     icon: MailOutlined,
@@ -30,7 +25,12 @@ const menuMap = [
         name: '设备管理'
       }
     ]
-  }
+  },
+  {
+    path: '/home/orderManage',
+    icon: DesktopOutlined,
+    name: '订单管理'
+  },
 ];
 
 export default menuMap;
