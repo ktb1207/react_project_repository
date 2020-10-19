@@ -8,6 +8,7 @@ import logo from '../../logo.svg';
 import BasePage from '../basePage/BasePage';
 import StepPage from '../stepPage/StepPage';
 import HeightPage from '../heightPage/HeightPage';
+import ApiCorePage from '../apiCorePage/ApiCorePage.js';
 
 class Home extends Component {
   constructor(props) {
@@ -54,6 +55,15 @@ class Home extends Component {
                   高级探索
                 </NavLink>
               </li>
+              <li>
+                <NavLink
+                  to="/home/apiCore"
+                  exact
+                  activeClassName="active-router-style"
+                >
+                  核心api解析
+                </NavLink>
+              </li>
             </ul>
           </div>
           <div className="header-logo" onClick={this.layoutLogin}>
@@ -78,6 +88,10 @@ class Home extends Component {
             <Route
               path={`${this.match.path}/hight`}
               component={HeightPage}
+            ></Route>
+            <Route
+              path={`${this.match.path}/apiCore`}
+              component={ApiCorePage}
             ></Route>
             {/* 错误路由处理 */}
             <Redirect from="/*" to="/home" />
