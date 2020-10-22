@@ -10,6 +10,7 @@ class ApiState extends Component {
             num2: 0,
         }
         this.clickSameAdd = this.clickSameAdd.bind(this);
+        this.addOnePre = this.addOnePre.bind(this);
     }
     // 相同增加state
     clickSameAdd () {
@@ -18,6 +19,12 @@ class ApiState extends Component {
             num1: preNum1,
         })
 
+    }
+    // click改变1
+    addOnePre () {
+        this.setState(state => ({
+            num2: state.num2 + 1
+        })) 
     }
 
     shouldComponentUpdate(nextProps, nextState){
@@ -37,8 +44,7 @@ class ApiState extends Component {
                     <button onClick={this.clickSameAdd}>sameAddButton</button>
                     <p>点击我的值修改但值相同，看是否有更新？{this.state.num1}</p>
                     <ChildState value={this.state.num1}></ChildState>
-                </div>
-                <div className="demo-wrp">
+                    <p>总结：</p>
                     <ol>
                         <li>
                             <i>setState相同的值，shouldComponentUpdate，componentDidUpdate生命周期方法会被调用，但组件不会重新渲染，这是react diff更新渲染的背后作用</i>
@@ -50,6 +56,16 @@ class ApiState extends Component {
                             <i>子组件接受相同的props,组件不会重新更新渲染,但是shouldComponentUpdate，componentDidUpdate生命周期方法会被调用</i>
                         </li>
                     </ol>
+                </div>
+                <div className="demo-wrp">
+                <button onClick={this.addOnePre}>+1button</button>
+                <p>nu2值每次click + 1 :{this.state.num2}</p>
+                <p>总结：</p>
+                <ol>
+                    <li>
+                        <i>父组件更新，会导致子组件更新，子组件可通过shouldComponentUpdate优化更新</i>
+                    </li>
+                </ol>
                 </div>
             </div>
         )
