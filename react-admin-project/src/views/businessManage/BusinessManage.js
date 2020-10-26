@@ -1,5 +1,5 @@
 import './BusinessManage.scss';
-import React, { useState, useEffect }from 'react';
+import React, { useState, useEffect, useRef }from 'react';
 import { useSelector, useDispatch} from 'react-redux';
 import { Button, Table, Modal, Form, Input, Divider, Radio, Row, Col} from 'antd';
 import {PlusOutlined, DeleteOutlined, EditOutlined} from '@ant-design/icons';
@@ -17,6 +17,7 @@ function BusinessManage() {
   const [modalVisible, setModalVisible] = useState(false); // modal框显示
   const [addBtnLoading, setAddBtnLoading] = useState(false); // 添加按钮loading
   const [locationModalVisible, setLocationModalVisible] = useState(false); // 位置modal
+  const fileRef = useRef();
   // antd form
   const [form] = Form.useForm();
   // 运营商--添加
@@ -36,8 +37,10 @@ function BusinessManage() {
     setCheckTableArr([...keys])
   };
   // 弹框-form-确认
-  const formValidateSuccess = () => {
+  const formValidateSuccess = (values) => {
     setAddBtnLoading(true)
+    console.log(values)
+    console.log(fileRef.current.files)
   }
   // 弹框-取消
   // modal close
@@ -152,7 +155,11 @@ function BusinessManage() {
             {...layout}
             name="basic"
             form={form}
-            initialValues={{}}
+            initialValues={{
+              businessLongitude: '112.456,88.321',
+              businessStar: 5,
+              businessName: 'name'
+            }}
             onFinish={formValidateSuccess}
           >
             <Form.Item
@@ -176,18 +183,14 @@ function BusinessManage() {
             >
               <Row>
                 <Col span={18}>
-                  <Input disabled/>
+                  <Form.Item name="businessLongitude">
+                    <Input disabled/>
+                  </Form.Item>
                 </Col>
                 <Col span={6}>
                   <Button type="primary" onClick={openMapModal}>选择</Button>
                 </Col>
               </Row>
-            </Form.Item>
-            <Form.Item
-              label="商家描述"
-              name="businessDescribe"
-            >
-              <Input />
             </Form.Item>
             <Form.Item
               label="商家运营状态"
@@ -201,26 +204,31 @@ function BusinessManage() {
               </Radio.Group>
             </Form.Item>
             <Form.Item
+              label="商家描述"
+              name="businessDescribe"
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
               label="商家星评"
               name="businessStar"
-              rules={[{ required: true, message: '必填' }]}
             >
               <Radio.Group disabled>
-                <Radio value="0">0分</Radio>
-                <Radio value="1">1分</Radio>
-                <Radio value="2">2分</Radio>
-                <Radio value="3">3分</Radio>
-                <Radio value="2">4分</Radio>
-                <Radio value="5">5分</Radio>
+                <Radio value={0}>0分</Radio>
+                <Radio value={1}>1分</Radio>
+                <Radio value={2}>2分</Radio>
+                <Radio value={3}>3分</Radio>
+                <Radio value={4}>4分</Radio>
+                <Radio value={5}>5分</Radio>
               </Radio.Group>
             </Form.Item>
-            {/* <Form.Item
+            <Form.Item
               label="商家图片"
               name="businessStatbusinessImageSrcus"
-              rules={[{ required: true, message: '必填' }]}
+              rules={[{ required: true, message: '必选' }]}
             >
-              
-            </Form.Item> */}
+              <input type="file" ref={fileRef}/>
+            </Form.Item>
             <Divider />
             <Form.Item {...tailLayout}>
               <Button loading={addBtnLoading} type="primary" htmlType="submit" className="modal-form-sure">
