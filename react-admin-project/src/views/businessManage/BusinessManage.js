@@ -4,6 +4,7 @@ import { useSelector, useDispatch} from 'react-redux';
 import { Button, Table, Modal, Form, Input, Divider, Radio, Row, Col} from 'antd';
 import {PlusOutlined, DeleteOutlined, EditOutlined} from '@ant-design/icons';
 import HeaderTitle from '../../components/headerTitle/HeaderTitle';
+import Map from '../../components/BMap/BMap';
 import { showLoadingAction, hideLoadingAction } from '../../store/action';
 import api from '../../api/index';
 function BusinessManage() {
@@ -15,6 +16,7 @@ function BusinessManage() {
   const [addOrEdit, setAddOrEdit] = useState(''); // 添加编辑状态
   const [modalVisible, setModalVisible] = useState(false); // modal框显示
   const [addBtnLoading, setAddBtnLoading] = useState(false); // 添加按钮loading
+  const [locationModalVisible, setLocationModalVisible] = useState(false); // 位置modal
   // antd form
   const [form] = Form.useForm();
   // 运营商--添加
@@ -42,6 +44,10 @@ function BusinessManage() {
   const cancelModal = () => {
     setModalVisible(false)
   }
+  // 打开地图弹窗
+  const openMapModal = () => {
+    setLocationModalVisible(true)
+  }
   // 获取运营商表格数据
   const fetchBusinessData = async() =>{
     dispatch(showLoadingAction())
@@ -60,6 +66,7 @@ function BusinessManage() {
   useEffect(() => {
     fetchBusinessData('initPage')
   },[])
+  // 表格列标题
   const columns = [
     {
       title: '运营商名称',
@@ -172,7 +179,7 @@ function BusinessManage() {
                   <Input disabled/>
                 </Col>
                 <Col span={6}>
-                  <Button type="primary">选择</Button>
+                  <Button type="primary" onClick={openMapModal}>选择</Button>
                 </Col>
               </Row>
             </Form.Item>
@@ -224,6 +231,21 @@ function BusinessManage() {
               </Button>
             </Form.Item>
           </Form>
+      </Modal>
+      {/* 地图选择 */}
+      <Modal
+        title="坐标位置选择"
+        visible={locationModalVisible}
+        centered
+        closable={false}
+        maskClosable={false}
+        keyboard={false}
+        destroyOnClose={true}
+        width={1080}
+      >
+        <div className="modal-map-content">
+          <Map></Map>
+        </div>
       </Modal>
     </div>
   )
