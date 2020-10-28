@@ -17,6 +17,10 @@ const api = {
   postEditUser: (data) => httpAxios.post(`${baseUrl}/user/updateUser`, data),
   // 运营商列表
   getBusinessData: () => httpAxios.get(`${baseUrl}/business/list`),
+  // 新增运营商
+  postAddBusiness: (data) => httpAxios.post(`${baseUrl}/business/add`,data,{
+    headers:{'Content-Type':'multipart/form-data'}
+  })
 }
 
 export default api;

@@ -1,7 +1,7 @@
 import './BusinessManage.scss';
 import React, { useState, useEffect, useRef }from 'react';
 import { useSelector, useDispatch} from 'react-redux';
-import { Button, Table, Modal, Form, Input, Divider, Radio, Row, Col} from 'antd';
+import { Button, Table, Modal, Form, Input, Divider, Radio, Row, Col, message} from 'antd';
 import {PlusOutlined, DeleteOutlined, EditOutlined} from '@ant-design/icons';
 import HeaderTitle from '../../components/headerTitle/HeaderTitle';
 import Map from '../../components/BMap/BMap';
@@ -17,6 +17,7 @@ function BusinessManage() {
   const [modalVisible, setModalVisible] = useState(false); // modal框显示
   const [addBtnLoading, setAddBtnLoading] = useState(false); // 添加按钮loading
   const [locationModalVisible, setLocationModalVisible] = useState(false); // 位置modal
+  const [businessAddressText, setBusinessAddressText] = useState(''); // 商家位置文本
   const fileRef = useRef();
   // antd form
   const [form] = Form.useForm();
@@ -38,9 +39,17 @@ function BusinessManage() {
   };
   // 弹框-form-确认
   const formValidateSuccess = (values) => {
-    setAddBtnLoading(true)
+    // setAddBtnLoading(true) postAddBusiness
     console.log(values)
     console.log(fileRef.current.files)
+    let formData = new FormData();
+    formData.append('imgFile',fileRef.current.files[0]);
+    for(let i in values) {
+      formData.append(i, values[i])
+    }
+    api.postAddBusiness(formData).then(res => {
+      console.log(res)
+    })
   }
   // 弹框-取消
   // modal close
@@ -49,7 +58,27 @@ function BusinessManage() {
   }
   // 打开地图弹窗
   const openMapModal = () => {
+    const adressText = form.getFieldsValue().businessLocation;
+    if (!adressText || adressText === '') {
+      message.error('请输入商家位置信息');
+      return false;
+    }
+    setBusinessAddressText(adressText)
     setLocationModalVisible(true)
+  }
+  // 获得地图点
+  const getMapPoint = (point) => {
+    console.log(point)
+    const pointText = point.lng + '+' + point.lat;
+    form.setFieldsValue({businessLongitude: pointText})
+  }
+  // 地图确认
+  const mapOk = () => {
+    setLocationModalVisible(false)
+  }
+  // 地图取消
+  const mapCancel = () => {
+    setLocationModalVisible(false)
   }
   // 获取运营商表格数据
   const fetchBusinessData = async() =>{
@@ -156,9 +185,7 @@ function BusinessManage() {
             name="basic"
             form={form}
             initialValues={{
-              businessLongitude: '112.456,88.321',
-              businessStar: 5,
-              businessName: 'name'
+              businessStar: 1,
             }}
             onFinish={formValidateSuccess}
           >
@@ -227,7 +254,7 @@ function BusinessManage() {
               name="businessStatbusinessImageSrcus"
               rules={[{ required: true, message: '必选' }]}
             >
-              <input type="file" ref={fileRef}/>
+              <input type="file" ref={fileRef} value={''}/>
             </Form.Item>
             <Divider />
             <Form.Item {...tailLayout}>
@@ -250,9 +277,11 @@ function BusinessManage() {
         keyboard={false}
         destroyOnClose={true}
         width={1080}
+        onOk={mapOk}
+        onCancel={mapCancel}
       >
         <div className="modal-map-content">
-          <Map></Map>
+          <Map location={businessAddressText} getPoint={getMapPoint}></Map>
         </div>
       </Modal>
     </div>
