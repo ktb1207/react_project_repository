@@ -57,7 +57,7 @@ function LeftMenus() {
                   <SubMenu key={item.subpath} icon={<item.icon />} title={item.name}>
                     {
                       item.children.map(sub => {
-                        return <Menu.Item key={sub.path}>{sub.name}</Menu.Item>
+                        return <Menu.Item key={sub.path} disabled={sub.disabled}>{sub.name}</Menu.Item>
                       })
                     }
                   </SubMenu>

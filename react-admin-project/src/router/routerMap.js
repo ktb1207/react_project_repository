@@ -34,7 +34,11 @@ const routerMap = [
       {
         path: "/home/businessManage",
         name: "businessManage",
-      }
+      },
+      {
+        path: "/home/equipmentManage",
+        name: "equipmentManage",
+      },
     ]
   },
   {

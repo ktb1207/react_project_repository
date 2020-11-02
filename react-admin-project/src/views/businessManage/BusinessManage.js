@@ -1,6 +1,7 @@
 import './BusinessManage.scss';
 import React, { useState, useEffect, useRef }from 'react';
 import { useSelector, useDispatch} from 'react-redux';
+import { useHistory } from "react-router-dom";
 import { Button, Table, Modal, Form, Input, Divider, Radio, Row, Col, message} from 'antd';
 import {PlusOutlined, DeleteOutlined, SettingOutlined} from '@ant-design/icons';
 import HeaderTitle from '../../components/headerTitle/HeaderTitle';
@@ -11,6 +12,8 @@ function BusinessManage() {
   const systemLoading = useSelector(state => state.appState.loadingState);
   const dispatch = useDispatch();
   console.log(systemLoading);
+  // 获取路由信息
+  const history = useHistory();
   const [businessTableData, setBusinessTableData] = useState([]); // 表格数据
   const [checkTableArr, setCheckTableArr] = useState([]); // 表格勾选数据
   const [tableLoading, setTableLoading] = useState(false); // 表格loading
@@ -45,10 +48,10 @@ function BusinessManage() {
     }
     dispatch(hideLoadingAction())
   }
-  // 运营商--编辑
-  const editClick = () =>{
-    // setAddOrEdit('修改')
-    // setModalVisible(true)
+  // 设备维护
+  const editClick = (value) =>{
+    console.log(value.id);
+    history.push('/home/equipmentManage')
   }
   // 表格勾选
   const tableSelectChange = (keys) => {

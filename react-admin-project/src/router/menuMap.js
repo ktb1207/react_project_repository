@@ -18,11 +18,13 @@ const menuMap = [
     children: [
       {
         path: '/home/businessManage',
-        name: '运营商管理'
+        name: '运营商管理',
+        disabled: false,
       },
       {
-        path: '/home/businessManage2',
-        name: '设备管理'
+        path: '/home/equipmentManage',
+        name: '设备管理',
+        disabled: true,
       }
     ]
   },

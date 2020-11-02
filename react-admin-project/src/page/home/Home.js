@@ -7,6 +7,7 @@ import HeaderFeature from '../../components/headerFeature/HeaderFeature';
 const UserManage = AsyncLazyLoad(() => import('../../views/userManage/UserManage.js'))
 const OrderManage = AsyncLazyLoad(() => import('../../views/orderManage/OrderManage.js'))
 const BusinessManage = AsyncLazyLoad(() => import('../../views/businessManage/BusinessManage.js'))
+const EquipmentManage = AsyncLazyLoad(() => import('../../views/equipmentManage/EquipmentManage.js'))
 class Home extends Component {
   constructor(props){
     super(props)
@@ -57,6 +58,13 @@ class Home extends Component {
                     path={`/home/businessManage`}
                     render={props => {
                       return <BusinessManage {...props}></BusinessManage>;
+                    }}
+                  ></Route>
+                  <Route
+                    exact
+                    path={`/home/equipmentManage`}
+                    render={props => {
+                      return <EquipmentManage {...props}></EquipmentManage>;
                     }}
                   ></Route>
                   {/* 错误路由处理 */}
