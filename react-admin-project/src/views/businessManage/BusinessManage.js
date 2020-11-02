@@ -2,7 +2,7 @@ import './BusinessManage.scss';
 import React, { useState, useEffect, useRef }from 'react';
 import { useSelector, useDispatch} from 'react-redux';
 import { Button, Table, Modal, Form, Input, Divider, Radio, Row, Col, message} from 'antd';
-import {PlusOutlined, DeleteOutlined, EditOutlined} from '@ant-design/icons';
+import {PlusOutlined, DeleteOutlined, SettingOutlined} from '@ant-design/icons';
 import HeaderTitle from '../../components/headerTitle/HeaderTitle';
 import Map from '../../components/BMap/BMap';
 import { showLoadingAction, hideLoadingAction } from '../../store/action';
@@ -10,6 +10,7 @@ import api from '../../api/index';
 function BusinessManage() {
   const systemLoading = useSelector(state => state.appState.loadingState);
   const dispatch = useDispatch();
+  console.log(systemLoading);
   const [businessTableData, setBusinessTableData] = useState([]); // 表格数据
   const [checkTableArr, setCheckTableArr] = useState([]); // 表格勾选数据
   const [tableLoading, setTableLoading] = useState(false); // 表格loading
@@ -27,29 +28,51 @@ function BusinessManage() {
     setModalVisible(true)
   }
   // 运营商--删除
-  const deleteClick = () => {}
+  const deleteClick = async() => {
+    dispatch(showLoadingAction())
+    const postData = {
+      ids: checkTableArr
+    }
+    try {
+      await api.postDeleteBusiness(postData).then(res =>{
+        if (res.code === 0) {
+          message.success('删除成功！')
+          fetchBusinessData('freshTable')
+        }
+      })
+    } catch(err) {
+      console.log(err)
+    }
+    dispatch(hideLoadingAction())
+  }
   // 运营商--编辑
   const editClick = () =>{
-    setAddOrEdit('修改')
-    setModalVisible(true)
+    // setAddOrEdit('修改')
+    // setModalVisible(true)
   }
   // 表格勾选
   const tableSelectChange = (keys) => {
     setCheckTableArr([...keys])
   };
   // 弹框-form-确认
-  const formValidateSuccess = (values) => {
-    // setAddBtnLoading(true) postAddBusiness
-    console.log(values)
-    console.log(fileRef.current.files)
+  const formValidateSuccess = async(values) => {
+    setAddBtnLoading(true)
     let formData = new FormData();
     formData.append('imgFile',fileRef.current.files[0]);
     for(let i in values) {
       formData.append(i, values[i])
     }
-    api.postAddBusiness(formData).then(res => {
-      console.log(res)
-    })
+    try {
+      api.postAddBusiness(formData).then(res => {
+        if (res.code === 0) {
+          setModalVisible(false)
+          fetchBusinessData('freshTable')
+        }
+      })
+    } catch(err) {
+      console.log(err)
+    }
+    setAddBtnLoading(false)
   }
   // 弹框-取消
   // modal close
@@ -81,8 +104,13 @@ function BusinessManage() {
     setLocationModalVisible(false)
   }
   // 获取运营商表格数据
-  const fetchBusinessData = async() =>{
-    dispatch(showLoadingAction())
+  const fetchBusinessData = async(come) =>{
+    if (come === 'initPage') {
+      dispatch(showLoadingAction())
+    }
+    if (come === 'freshTable') {
+      setTableLoading(true)
+    }
     try {
       await api.getBusinessData().then(res =>{
         if (res.code === 0) {
@@ -92,7 +120,12 @@ function BusinessManage() {
     } catch(err) {
       console.log(err)
     }
-    dispatch(hideLoadingAction())
+    if (come === 'initPage') {
+      dispatch(hideLoadingAction())
+    }
+    if (come === 'freshTable') {
+      setTableLoading(false)
+    }
   }
   // 获取页面表格数据
   useEffect(() => {
@@ -134,7 +167,7 @@ function BusinessManage() {
       title: '操作',
       key: 'handel',
       render:(value,data,index) => (
-        <Button type="link " size="small" onClick={() => editClick(value,data,index)}><EditOutlined /></Button>
+        <Button type="link " size="small" onClick={() => editClick(value,data,index)}><SettingOutlined /></Button>
       )
     },
   ];

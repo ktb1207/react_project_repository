@@ -20,7 +20,9 @@ const api = {
   // 新增运营商
   postAddBusiness: (data) => httpAxios.post(`${baseUrl}/business/add`,data,{
     headers:{'Content-Type':'multipart/form-data'}
-  })
+  }),
+  // 删除运营商
+  postDeleteBusiness: (data) => httpAxios.post(`${baseUrl}/business/deleteBusiness`, data),
 }
 
 export default api;
