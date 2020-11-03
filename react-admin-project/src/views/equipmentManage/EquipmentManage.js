@@ -1,7 +1,7 @@
 import './equipmentManage.scss';
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Button, Table} from 'antd';
+import { Button, Table, Modal, Form, Input, Radio, Divider} from 'antd';
 import {PlusOutlined, DeleteOutlined, SettingOutlined} from '@ant-design/icons';
 import HeaderTitle from '../../components/headerTitle/HeaderTitle';
 function EquipmentManage() {
@@ -9,15 +9,28 @@ function EquipmentManage() {
   const [tableLoading, setTableLoading] = useState(false); // 表格loading
   const [equipmentTableData, setEquipmentTableData] = useState([]); // 表格数据
   const [checkTableArr, setCheckTableArr] = useState([]); // 表格勾选数据
+  const [modalVisible, setModalVisible] = useState(false); // modal框显示
+  const [addBtnLoading, setAddBtnLoading] = useState(false); // 添加按钮loading
+  // antd form
+  const [form] = Form.useForm();
   // 添加
-  const addClick = () => {}
+  const addClick = () => {
+    form.setFieldsValue({equipmentName: '', equipmentType: ''})
+    setModalVisible(true)
+  }
   // 删除
   const deleteClick = () => {}
   // 表格勾选
   const tableSelectChange = (keys) => {
     setCheckTableArr([...keys])
   };
-  const editClick = () => {}
+  const editClick = () => {};
+  // 添加表单确认
+  const formValidateSuccess = (values) => {};
+  // 添加取消
+  const cancelModal = () => {
+    setModalVisible(false)
+  }
   // 表格列标题
   const columns = [
     {
@@ -37,7 +50,14 @@ function EquipmentManage() {
         <Button type="link " size="small" onClick={() => editClick(value,data,index)}><SettingOutlined /></Button>
       )
     }
-  ]
+  ];
+  const layout = {
+    labelCol: { span: 8 },
+    wrapperCol: { span: 14 },
+  };
+  const tailLayout = {
+    wrapperCol: { span: 24 },
+  };
   return (
     <div className="menu-router-page">
       <div className="menu-page-header">
@@ -62,6 +82,53 @@ function EquipmentManage() {
           columns={columns} 
         />
       </div>
+      {/* 添加-编辑modal */}
+      <Modal
+        title='添加设备'
+        visible={modalVisible}
+        centered
+        closable={false}
+        maskClosable={false}
+        keyboard={false}
+        destroyOnClose={true}
+        footer={null}
+      >
+        <Form
+          {...layout}
+          name="basic"
+          form={form}
+          initialValues={{}}
+          onFinish={formValidateSuccess}
+        >
+          <Form.Item
+            label="设备名称"
+            name="equipmentName"
+            rules={[{ required: true, message: '必填' }]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            label="设备类型"
+            name="equipmentType"
+            rules={[{ required: true, message: '必填' }]}
+          >
+            <Radio.Group>
+              <Radio.Button value="1">洗衣机</Radio.Button>
+              <Radio.Button value="2">洗鞋机</Radio.Button>
+              <Radio.Button value="3">烘干机</Radio.Button>
+            </Radio.Group>
+          </Form.Item>
+          <Divider />
+          <Form.Item {...tailLayout}>
+            <Button loading={addBtnLoading} type="primary" htmlType="submit" className="modal-form-sure">
+              确定
+            </Button>
+            <Button htmlType="button" className="modal-form-cancel" onClick={cancelModal}>
+              取消
+            </Button>
+          </Form.Item>
+        </Form>
+      </Modal>
     </div>
   )
 }
