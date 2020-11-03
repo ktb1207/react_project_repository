@@ -15,7 +15,10 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.match)
+    const { match, location, history } = this.props;
+    console.log(match)
+    console.log(location)
+    console.log(history)
   }
   
   render (){
@@ -62,7 +65,7 @@ class Home extends Component {
                   ></Route>
                   <Route
                     exact
-                    path={`/home/equipmentManage`}
+                    path={`/home/equipmentManage/:equipmentId`}
                     render={props => {
                       return <EquipmentManage {...props}></EquipmentManage>;
                     }}

@@ -36,7 +36,7 @@ const routerMap = [
         name: "businessManage",
       },
       {
-        path: "/home/equipmentManage",
+        path: "/home/equipmentManage/:equipmentId",
         name: "equipmentManage",
       },
     ]

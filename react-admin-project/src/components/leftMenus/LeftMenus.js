@@ -34,6 +34,7 @@ function LeftMenus() {
   // 根据当前url路由调整选中菜单
   useEffect(() => {
     const nowUrl = history.location.pathname;
+    console.log('nowUrl:' + nowUrl);
     setDefaultMenuKey(nowUrl)
   }, [history.location.pathname])
   return (

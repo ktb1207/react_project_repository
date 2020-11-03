@@ -22,7 +22,7 @@ const menuMap = [
         disabled: false,
       },
       {
-        path: '/home/equipmentManage',
+        path: '/home/equipmentManage/:equipmentId',
         name: '设备管理',
         disabled: true,
       }

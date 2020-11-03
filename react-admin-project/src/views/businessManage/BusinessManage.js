@@ -50,8 +50,7 @@ function BusinessManage() {
   }
   // 设备维护
   const editClick = (value) =>{
-    console.log(value.id);
-    history.push('/home/equipmentManage')
+    history.push(`/home/equipmentManage/${value.id}`)
   }
   // 表格勾选
   const tableSelectChange = (keys) => {
