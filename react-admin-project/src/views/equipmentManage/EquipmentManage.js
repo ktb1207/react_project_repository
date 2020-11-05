@@ -1,10 +1,14 @@
 import './equipmentManage.scss';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch} from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { Button, Table, Modal, Form, Input, Radio, Divider} from 'antd';
 import {PlusOutlined, DeleteOutlined, SettingOutlined} from '@ant-design/icons';
 import HeaderTitle from '../../components/headerTitle/HeaderTitle';
+import { showLoadingAction, hideLoadingAction } from '../../store/action';
+import api from '../../api/index';
 function EquipmentManage() {
+  const dispatch = useDispatch();
   let { equipmentId } = useParams();
   const [tableLoading, setTableLoading] = useState(false); // 表格loading
   const [equipmentTableData, setEquipmentTableData] = useState([]); // 表格数据
@@ -26,11 +30,58 @@ function EquipmentManage() {
   };
   const editClick = () => {};
   // 添加表单确认
-  const formValidateSuccess = (values) => {};
+  const formValidateSuccess = async(values) => {
+    setAddBtnLoading(true)
+    try {
+      const postData = {
+        equipmentName: values.equipmentName,
+        equipmentType: values.equipmentType,
+        equipmentConcatBusinessId: equipmentId,
+      }
+      await api.postAddEquipment(postData).then(res =>{
+        if (res.code === 0) {
+          setAddBtnLoading(false)
+          setModalVisible(false)
+          fetchEquipmentData('freshTable')
+        }
+      })
+    } catch(err) {
+      console.log(err)
+      setAddBtnLoading(false)
+    }
+  };
   // 添加取消
   const cancelModal = () => {
     setModalVisible(false)
   }
+  // 获取表格数据
+  const fetchEquipmentData = async(come) => {
+    if (come === 'initPage') {
+      dispatch(showLoadingAction())
+    }
+    if (come === 'freshTable') {
+      setTableLoading(true)
+    }
+    try {
+      await api.getBusinessEquipment(equipmentId).then(res => {
+        if (res.code === 0) {
+          setEquipmentTableData([...res.data.list])
+        }
+      })
+    } catch(err){
+      console.log(err)
+    }
+    if (come === 'initPage') {
+      dispatch(hideLoadingAction())
+    }
+    if (come === 'freshTable') {
+      setTableLoading(false)
+    }
+  }
+  // 获取表格数据
+  useEffect(() => {
+    fetchEquipmentData('initPage')
+  }, [])
   // 表格列标题
   const columns = [
     {
@@ -41,7 +92,7 @@ function EquipmentManage() {
     {
       title: '洗衣机类型',
       dataIndex: 'equipmentType',
-      key: 'equipmentType',
+      key: 'equipmentType'
     },
     {
       title: '操作',

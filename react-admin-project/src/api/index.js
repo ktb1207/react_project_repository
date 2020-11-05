@@ -23,6 +23,10 @@ const api = {
   }),
   // 删除运营商
   postDeleteBusiness: (data) => httpAxios.post(`${baseUrl}/business/deleteBusiness`, data),
+  // 获取运营商关联设备列表
+  getBusinessEquipment: (equipmentId) => httpAxios.get(`${baseUrl}/equipment/list/${equipmentId}`),
+  // 添加设备
+  postAddEquipment: (data) => httpAxios.post(`${baseUrl}/equipment/addEquipment`, data),
 }
 
 export default api;
