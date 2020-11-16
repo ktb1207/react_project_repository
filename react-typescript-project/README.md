@@ -1,6 +1,7 @@
 # Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+react mobile 项目概括
+采用官方脚手架 create-react-app 扩充配置
 
 ## Available Scripts
 
@@ -8,39 +9,41 @@ In the project directory, you can run:
 
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+启动开发环境
 
 ### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+启动测试环境
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+生产环境打包
 
 ### `npm run eject`
 
 **Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+#配置说明
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## 项目采用 typescript 语言进行项目配置
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+1.配置文件 tsconfig.json
+2.eslintrc.js
+3.prettierrc.js
+4.editorconfig
 
-## Learn More
+##环境区分配置
+1.npm install dotenv-cli --save-dev 2.项目根目录新建 .env.development,.env.production,.env.test，三个文件依次是开发环境，生产环境，测试环境
+3.package.json 修改 script 命令
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## css 配置
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+1.npm install node-sass 支持 sass 预编译
+2.npm install less less-loader --save-dev 支持 less 预编译
+3.npm install postcss-pxtorem --save-dev 采用 px-rem 支配
+
+## 路径别名配置
+
+@：src
+
+## 引入 fastlick.js 解决移动端 click 延迟

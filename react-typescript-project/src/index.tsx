@@ -1,6 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import '@/utils/pxToRem.js';
+import '@/styles/reset.scss';
+import '@/styles/style.scss';
+import '@/styles/resetAntd.scss';
+import '@/index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 ReactDOM.render(
