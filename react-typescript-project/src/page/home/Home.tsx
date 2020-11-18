@@ -1,5 +1,5 @@
 import React, { Suspense, useEffect } from 'react';
-import { Switch, Route, Redirect, useRouteMatch } from 'react-router-dom';
+import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import './home.scss';
 
 const ChildHome = React.lazy(() => import('../childHome/ChildHome'));
@@ -13,17 +13,17 @@ const Home: React.FC = () => {
   console.log(path);
   useEffect(() => {
     console.log('updating');
-  });
+  }, [path]);
   return (
     <div>
       <Switch>
         <Suspense fallback={<div></div>}>
-          <Route exact path={`/home`} component={ChildHome} key="child-home"></Route>
-          <Route exact path={`/home/collect`} component={ChildCollect} key="child-collect"></Route>
-          <Route exact path={`/home/order`} component={ChildOrder} key="child-order"></Route>
-          <Route exact path={`/home/my`} component={ChildMy} key="child-my"></Route>
+          <Route exact path={`/home`} component={ChildHome}></Route>
+          <Route exact path={`/home/home`} component={ChildHome}></Route>
+          <Route exact path={`/home/collect`} component={ChildCollect}></Route>
+          <Route exact path={`/home/order`} component={ChildOrder}></Route>
+          <Route exact path={`/home/my`} component={ChildMy}></Route>
           {/* 错误路由处理 */}
-          <Redirect from={`/home/*`} to={`/home`} />
         </Suspense>
       </Switch>
     </div>
