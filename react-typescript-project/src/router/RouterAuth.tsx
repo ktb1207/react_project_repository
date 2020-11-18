@@ -6,6 +6,7 @@ interface IRoute {
   name: string;
   component: React.LazyExoticComponent<any>;
   auth: boolean;
+  children?: Array<any>;
 }
 export interface IProps extends RouteComponentProps {
   routerConfig: Array<IRoute>;
@@ -19,12 +20,14 @@ class RouterAuth extends Component<IProps> {
   render(): React.ReactElement {
     const { routerConfig, location } = this.props;
     const { pathname } = location;
-    const isLogin: string | null = localStorage.getItem('token');
-    console.log(location);
-    console.log(pathname);
-    console.log(isLogin);
-    const targetRouterConfig = routerConfig.find((item) => item.path === pathname);
-    console.log(targetRouterConfig);
+    const isLogin: string | null = localStorage.getItem('mobile_token');
+    const targetRouterConfig = routerConfig.find((item) => {
+      if (!item.children) {
+        return item.path === pathname;
+      } else {
+        return pathname.includes(item.path) === true;
+      }
+    });
     // 非登录状态，该路由不用进行权限校验
     if (targetRouterConfig && !targetRouterConfig.auth && !isLogin) {
       const { component } = targetRouterConfig;
@@ -33,11 +36,19 @@ class RouterAuth extends Component<IProps> {
     if (isLogin) {
       // 登录状态，想要跳转登录页，重定向到主页
       if (pathname === '/login') {
-        return <Redirect to="/" />;
+        return <Redirect to="/home" />;
       } else {
         // 如果路由合法，跳转到对应路由
         if (targetRouterConfig) {
-          return <Route path={pathname} component={targetRouterConfig.component} />;
+          // 根路由重定向home
+          if (pathname === '/') {
+            return <Redirect to="/home" />;
+          } else {
+            if (targetRouterConfig.children && targetRouterConfig.children.length > 0) {
+              return <Route path={pathname} component={targetRouterConfig.component} />;
+            }
+            return <Route exact path={pathname} component={targetRouterConfig.component} />;
+          }
         } else {
           // 如果路由不合法，重定向到 404 页面
           return <Redirect to="/errorPage" />;

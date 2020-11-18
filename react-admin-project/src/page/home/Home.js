@@ -1,27 +1,27 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
-import './home.scss'
+import './home.scss';
 import LeftMenus from '../../components/leftMenus/LeftMenus';
 import AsyncLazyLoad from '../../components/AsyncLazyLoad.js';
 import HeaderFeature from '../../components/headerFeature/HeaderFeature';
-const UserManage = AsyncLazyLoad(() => import('../../views/userManage/UserManage.js'))
-const OrderManage = AsyncLazyLoad(() => import('../../views/orderManage/OrderManage.js'))
-const BusinessManage = AsyncLazyLoad(() => import('../../views/businessManage/BusinessManage.js'))
-const EquipmentManage = AsyncLazyLoad(() => import('../../views/equipmentManage/EquipmentManage.js'))
+const UserManage = AsyncLazyLoad(() => import('../../views/userManage/UserManage.js'));
+const OrderManage = AsyncLazyLoad(() => import('../../views/orderManage/OrderManage.js'));
+const BusinessManage = AsyncLazyLoad(() => import('../../views/businessManage/BusinessManage.js'));
+const EquipmentManage = AsyncLazyLoad(() => import('../../views/equipmentManage/EquipmentManage.js'));
 class Home extends Component {
-  constructor(props){
-    super(props)
-    this.state = {}
+  constructor(props) {
+    super(props);
+    this.state = {};
   }
 
   componentDidMount() {
     const { match, location, history } = this.props;
-    console.log(match)
-    console.log(location)
-    console.log(history)
+    console.log(match);
+    console.log(location);
+    console.log(history);
   }
-  
-  render (){
+  render() {
+    console.log('home');
     return (
       <div className="full-page home-page">
         <header>
@@ -38,35 +38,35 @@ class Home extends Component {
                   <Route
                     exact
                     path={'/home'}
-                    render={props => {
+                    render={(props) => {
                       return <UserManage {...props}></UserManage>;
                     }}
                   ></Route>
                   <Route
                     exact
                     path={'/home/userManage'}
-                    render={props => {
+                    render={(props) => {
                       return <UserManage {...props}></UserManage>;
                     }}
                   ></Route>
                   <Route
                     exact
                     path={`/home/orderManage`}
-                    render={props => {
+                    render={(props) => {
                       return <OrderManage {...props}></OrderManage>;
                     }}
                   ></Route>
                   <Route
                     exact
                     path={`/home/businessManage`}
-                    render={props => {
+                    render={(props) => {
                       return <BusinessManage {...props}></BusinessManage>;
                     }}
                   ></Route>
                   <Route
                     exact
                     path={`/home/equipmentManage/:equipmentId`}
-                    render={props => {
+                    render={(props) => {
                       return <EquipmentManage {...props}></EquipmentManage>;
                     }}
                   ></Route>
@@ -78,9 +78,8 @@ class Home extends Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
-
 
 export default Home;

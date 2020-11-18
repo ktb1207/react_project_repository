@@ -6,10 +6,7 @@ console.log('当前环境地址:' + process.env.REACT_APP_BASE_URL);
 function App(): React.ReactElement {
   return (
     <div className="App">
-      <div className="App-content">
-        <RouterConfig></RouterConfig>
-      </div>
-      <div className="App-footer"></div>
+      <RouterConfig></RouterConfig>
     </div>
   );
 }

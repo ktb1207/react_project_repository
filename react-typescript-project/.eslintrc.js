@@ -19,7 +19,8 @@ module.exports = {
   rules: {
     // 自定义规则
     // e.g. "@typescript-eslint/explicit-function-return-type": "off",
-    '@typescript-eslint/no-explicit-any': 'off' // 允许ts泛型any
+    '@typescript-eslint/no-explicit-any': 'off', // 允许ts泛型any
+    '@typescript-eslint/no-unused-vars': 'warn'
   },
   settings: {
     react: {

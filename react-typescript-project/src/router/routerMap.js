@@ -28,5 +28,29 @@ export default [
     name: 'App',
     component: Home,
     auth: true
+  },
+  {
+    path: '/home',
+    name: 'Home',
+    component: Home,
+    auth: true,
+    children: [
+      {
+        path: '/home',
+        name: 'home'
+      },
+      {
+        path: '/home/collect',
+        name: 'collect'
+      },
+      {
+        path: '/home/order',
+        name: 'order'
+      },
+      {
+        path: '/home/my',
+        name: 'my'
+      }
+    ]
   }
 ];
