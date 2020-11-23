@@ -1,0 +1,10 @@
+.render-in-dom{
+  display: none;
+  opacity: 0;
+  transform: scale(0.8, 0.8);
+  transition: all 0.2s ease-out;
+}
+.render-in-dom-transition{
+  opacity: 1;
+  transform: scale(1, 1);
+}
