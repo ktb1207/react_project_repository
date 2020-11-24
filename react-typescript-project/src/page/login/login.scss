@@ -8,5 +8,11 @@
     padding: 64px 32px;
     border-radius: 16px;
     background-color: #999;
+    .register {
+      color: red;
+      float: right;
+      line-height: 64px;
+      font-size: 32px;
+    }
   }
 }

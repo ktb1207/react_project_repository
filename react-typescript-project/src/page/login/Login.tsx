@@ -12,6 +12,9 @@ interface IProps {
   loadingStatus: boolean;
   onLoadingShow: () => void;
   onLoadingHide: () => void;
+  history: any;
+  location: any;
+  match: any;
 }
 
 interface IState {
@@ -28,15 +31,27 @@ class Login extends Component<IProps, IState> {
       inputValue: '我是初始化值'
     };
   }
+  // 输入值
   fieldChange = (value: string): void => {
     console.log('输入：' + value);
   };
+  // 登录
   loginMethod = (): void => {
-    api.testGet();
+    try {
+      api.testGet().then((res) => {
+        console.log(res);
+      });
+    } catch (err) {
+      console.log(err);
+    }
     this.props.onLoadingShow();
     setTimeout(() => {
       this.props.onLoadingHide();
     }, 3000);
+  };
+  // 注册
+  registerClick = (): void => {
+    this.props.history.push('/register');
   };
   render(): React.ReactElement {
     console.log(this.props);
@@ -49,6 +64,9 @@ class Login extends Component<IProps, IState> {
           <Button type="primary" onClick={this.loginMethod}>
             {buttonName}
           </Button>
+          <p className="register" onClick={this.registerClick}>
+            注册
+          </p>
         </div>
       </div>
     );

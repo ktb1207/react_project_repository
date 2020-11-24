@@ -1,5 +1,6 @@
 import React from 'react';
 const Login = React.lazy(() => import('../page/login/Login'));
+const Register = React.lazy(() => import('../page/register/Register'));
 const Home = React.lazy(() => import('../page/home/Home'));
 const About = React.lazy(() => import('../page/about/About'));
 const ErrorPage = React.lazy(() => import('../page/error/Error'));
@@ -9,6 +10,12 @@ export default [
     path: '/login',
     name: 'Login',
     component: Login,
+    auth: false
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: Register,
     auth: false
   },
   {
