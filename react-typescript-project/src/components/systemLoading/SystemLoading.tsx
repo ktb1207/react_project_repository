@@ -10,9 +10,11 @@ function SystemLoading(props: IProps): React.ReactElement {
   const isShow = props.show;
   return (
     <RenderInDom show={isShow}>
-      <div className="system-loading-center">
-        <span>loading...</span>
-      </div>
+      {isShow ? (
+        <div className="system-loading-center">
+          <span>loading...</span>
+        </div>
+      ) : null}
     </RenderInDom>
   );
 }

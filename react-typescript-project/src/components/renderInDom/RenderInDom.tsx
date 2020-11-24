@@ -6,7 +6,7 @@ import './renderInDom.scss';
 interface IProps {
   show: boolean;
   rootDom?: HTMLElement;
-  children?: React.ReactElement;
+  children?: React.ReactElement | null;
 }
 
 interface IState {}
