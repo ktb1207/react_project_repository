@@ -4,6 +4,7 @@ import { Dispatch } from 'redux';
 import { Button } from 'antd-mobile';
 import MInput from '@/components/MInput/MInput';
 import { showLoading, hideLoading } from '../../store/action';
+import api from '../../api/index';
 import './login.scss';
 
 interface IProps {
@@ -31,6 +32,7 @@ class Login extends Component<IProps, IState> {
     console.log('输入：' + value);
   };
   loginMethod = (): void => {
+    api.testGet();
     this.props.onLoadingShow();
     setTimeout(() => {
       this.props.onLoadingHide();
