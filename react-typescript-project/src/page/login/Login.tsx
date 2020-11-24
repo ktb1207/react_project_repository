@@ -30,6 +30,12 @@ class Login extends Component<IProps, IState> {
   fieldChange = (value: string): void => {
     console.log('输入：' + value);
   };
+  loginMethod = (): void => {
+    this.props.onLoadingShow();
+    setTimeout(() => {
+      this.props.onLoadingHide();
+    }, 3000);
+  };
   render(): React.ReactElement {
     console.log(this.props);
     const buttonName: string | undefined = this.props.name;
@@ -38,7 +44,9 @@ class Login extends Component<IProps, IState> {
         <div className="content-center">
           <MInput label="用户名" value="" placeHolder="用户名" change={this.fieldChange}></MInput>
           <MInput label="密码" type="password" value="" placeHolder="密码" change={this.fieldChange}></MInput>
-          <Button type="primary">{buttonName}</Button>
+          <Button type="primary" onClick={this.loginMethod}>
+            {buttonName}
+          </Button>
         </div>
       </div>
     );
