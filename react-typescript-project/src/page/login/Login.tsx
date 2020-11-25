@@ -53,6 +53,12 @@ class Login extends Component<IProps, IState> {
   registerClick = (): void => {
     this.props.history.push('/register');
   };
+  shouldComponentUpdate(nextProps: any): boolean {
+    if (nextProps.loadingStatus === this.props.loadingStatus) {
+      return false;
+    }
+    return true;
+  }
   render(): React.ReactElement {
     console.log(this.props);
     const buttonName: string | undefined = this.props.name;

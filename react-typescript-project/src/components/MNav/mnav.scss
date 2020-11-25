@@ -1,0 +1,22 @@
+.m-nav {
+  height: 82px;
+  line-height: 82px;
+  background-color: #008be5;
+  display: flex;
+  flex-wrap: nowrap;
+  & > .left-back {
+    flex: 0 0 auto;
+    font-size: 24px;
+    color: #fff;
+    padding-left: 32px;
+  }
+  & > .center-title {
+    flex: 1 1 auto;
+    font-size: 32px;
+    color: #fff;
+    text-align: center;
+  }
+  & > .right-custom {
+    flex: 0 0 auto;
+  }
+}

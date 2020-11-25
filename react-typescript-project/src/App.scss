@@ -1,8 +1,14 @@
 .App {
   height: 100%;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  & > .App-header-nav {
+    flex: 0 0 auto;
+  }
   & > .root-router-page {
-    height: 100%;
+    flex: 1 1 auto;
     overflow-x: hidden;
     overflow-y: auto;
     position: relative;
