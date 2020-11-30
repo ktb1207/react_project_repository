@@ -21,7 +21,7 @@ const App: React.FC<IProps> = () => {
     window.addEventListener(
       'hashchange',
       () => {
-        if (window.location.hash === '#/login') {
+        if (window.location.hash === '#/login' || window.location.hash.includes('/home')) {
           setHeader(false);
         } else {
           setHeader(true);

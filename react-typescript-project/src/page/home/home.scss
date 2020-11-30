@@ -1,0 +1,15 @@
+.home-page{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  & > .home-router-wrp{
+    flex: 1 1 auto;
+    overflow-y: auto;
+  }
+  & > .home-bottom-feature{
+    flex: 0 0 auto;
+    background-color: #fff;
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "id": "1885657",
+  "name": "react-mobile",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon",
+  "description": "个人图标库",
+  "glyphs": [
+    {
+      "icon_id": "458996",
+      "name": "home",
+      "font_class": "home",
+      "unicode": "e61e",
+      "unicode_decimal": 58910
+    },
+    {
+      "icon_id": "2451804",
+      "name": "我的",
+      "font_class": "wode",
+      "unicode": "e62f",
+      "unicode_decimal": 58927
+    },
+    {
+      "icon_id": "5661124",
+      "name": "订单",
+      "font_class": "dingdan",
+      "unicode": "e61a",
+      "unicode_decimal": 58906
+    },
+    {
+      "icon_id": "10176407",
+      "name": "收藏",
+      "font_class": "shoucang",
+      "unicode": "e60c",
+      "unicode_decimal": 58892
+    }
+  ]
+}

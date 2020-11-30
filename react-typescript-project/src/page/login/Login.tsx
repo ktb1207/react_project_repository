@@ -4,7 +4,8 @@ import { Dispatch } from 'redux';
 import { Button } from 'antd-mobile';
 import MInput from '@/components/MInput/MInput';
 import { showLoading, hideLoading } from '../../store/action';
-import api from '../../api/index';
+// import api from '../../api/index';
+import util from '../../utils/utils';
 import './login.scss';
 
 interface IProps {
@@ -37,17 +38,19 @@ class Login extends Component<IProps, IState> {
   };
   // 登录
   loginMethod = (): void => {
-    try {
-      api.testGet().then((res) => {
-        console.log(res);
-      });
-    } catch (err) {
-      console.log(err);
-    }
-    this.props.onLoadingShow();
-    setTimeout(() => {
-      this.props.onLoadingHide();
-    }, 3000);
+    // try {
+    //   api.testGet().then((res) => {
+    //     console.log(res);
+    //   });
+    // } catch (err) {
+    //   console.log(err);
+    // }
+    // this.props.onLoadingShow();
+    // setTimeout(() => {
+    //   this.props.onLoadingHide();
+    // }, 3000);
+    util.setToken('mobile_token_123456');
+    this.props.history.push('/home');
   };
   // 注册
   registerClick = (): void => {

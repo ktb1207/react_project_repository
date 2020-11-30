@@ -14,18 +14,26 @@ const Home: React.FC = () => {
     console.log('updating');
   }, [path]);
   return (
-    <div>
-      <Switch>
-        <Suspense fallback={<div></div>}>
-          <Route exact path={`/home`} component={ChildHome}></Route>
-          <Route exact path={`/home/collect`} component={ChildCollect}></Route>
-          <Route exact path={`/home/order`} component={ChildOrder}></Route>
-          <Route exact path={`/home/my`} component={ChildMy}></Route>
-          {/* 错误路由处理 */}
-          {/* 存在父路由执行两次情况 */}
-          {/* <Redirect from="/home/*" to="/home" /> */}
-        </Suspense>
-      </Switch>
+    <div className="home-page">
+      <div className="home-router-wrp">
+        <Switch>
+          <Suspense fallback={<div></div>}>
+            <Route exact path={`/home`} component={ChildHome}></Route>
+            <Route exact path={`/home/collect`} component={ChildCollect}></Route>
+            <Route exact path={`/home/order`} component={ChildOrder}></Route>
+            <Route exact path={`/home/my`} component={ChildMy}></Route>
+            {/* 错误路由处理 */}
+            {/* 存在父路由执行两次情况 */}
+            {/* <Redirect from="/home/*" to="/home" /> */}
+          </Suspense>
+        </Switch>
+      </div>
+      <div className="home-bottom-feature">
+        <i className="iconfont iconhome"></i>
+        <i className="iconfont iconshoucang"></i>
+        <i className="iconfont icondingdan"></i>
+        <i className="iconfont iconwode"></i>
+      </div>
     </div>
   );
 };

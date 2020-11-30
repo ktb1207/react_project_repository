@@ -1,12 +1,12 @@
 const util = {
   setToken: (token: string): void => {
-    localStorage.setItem('system_login_token', token);
+    localStorage.setItem('mobile_token', token);
   },
   getToken: (): string | null => {
-    return localStorage.getItem('system_login_token');
+    return localStorage.getItem('mobile_token');
   },
   clearToken: (): void => {
-    localStorage.removeItem('system_login_token');
+    localStorage.removeItem('mobile_token');
   },
   hasClass: (node: HTMLElement, className: string): boolean => {
     if (typeof node.getAttribute('class') as string) {

@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import '@/utils/pxToRem.js';
+import '@/static/iconfont/iconfont.css';
 import '@/styles/reset.scss';
 import '@/styles/style.scss';
 import '@/styles/resetAntd.scss';
