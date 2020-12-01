@@ -1,0 +1,31 @@
+.child-home-wrp {
+  .swiper-container {
+    height: 380px;
+    img {
+      width: 100%;
+    }
+  }
+  .feature-wrp {
+    display: flex;
+    flex-wrap: wrap;
+    height: auto;
+    & > .feature-item {
+      flex: 0 0 50%;
+      height: 282px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 38px;
+      color: #fff;
+      &:nth-child(1) {
+        background-image: radial-gradient(#0089e585, #007aff);
+      }
+      &:nth-child(2) {
+        background-image: radial-gradient(#e4efd4, #adff2f);
+      }
+      &:nth-child(3) {
+        background-image: radial-gradient(#c1c8ec, #4a65f1);
+      }
+    }
+  }
+}
