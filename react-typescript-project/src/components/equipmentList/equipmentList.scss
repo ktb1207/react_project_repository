@@ -1,0 +1,35 @@
+.equipment-list {
+  .empty {
+    border-left: 4px solid #32e432;
+  }
+  .busy {
+    border-left: 4px solid #eae41f;
+  }
+  .hitch {
+    border-left: 4px solid red;
+  }
+  li {
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+    & > .left-wrp {
+      flex: 1 1 auto;
+      padding-left: 24px;
+      .up-title {
+        font-size: 34px;
+        color: #565656;
+      }
+      .down-desc {
+        font-size: 28px;
+        color: #999;
+      }
+    }
+    & > .right-wrp {
+      flex: 0 0 auto;
+      padding: 0 24px;
+      color: #999;
+      font-size: 28px;
+    }
+  }
+}

@@ -1,25 +1,39 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './childCollect.scss';
+import EquipmentList from '../../components/equipmentList/EquipmentList';
+
+interface IEquipment {
+  name: string;
+  typeName: string;
+  distance: string;
+  status: number;
+}
 
 const ChildCollect: React.FC = () => {
+  const testArr = [
+    {
+      name: '大望路万达广场店',
+      typeName: '洗衣机',
+      distance: '2.5km',
+      status: 1
+    },
+    {
+      name: '国贸店',
+      typeName: '烘干机',
+      distance: '2.8km',
+      status: 2
+    },
+    {
+      name: '清河店',
+      typeName: '洗鞋机',
+      distance: '2.8km',
+      status: 3
+    }
+  ];
+  const [equipmentData] = useState<Array<IEquipment>>(testArr);
   return (
     <div className="child-collect-wrp">
-      <ul>
-        <li>
-          <div className="left-wrp">
-            <div className="up-title">大望路万达广场店</div>
-            <div className="down-desc">洗衣机</div>
-          </div>
-          <div className="right-wrp">2.3km</div>
-        </li>
-        <li>
-          <div className="left-wrp">
-            <div className="up-title">大望路万达广场店</div>
-            <div className="down-desc">洗衣机</div>
-          </div>
-          <div className="right-wrp">2.3km</div>
-        </li>
-      </ul>
+      <EquipmentList equipmentArr={equipmentData}></EquipmentList>
     </div>
   );
 };
