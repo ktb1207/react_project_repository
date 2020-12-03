@@ -7,6 +7,7 @@ interface IRoute {
   component: React.LazyExoticComponent<any>;
   auth: boolean;
   children?: Array<any>;
+  params?: Array<string>;
 }
 export interface IProps extends RouteComponentProps {
   routerConfig: Array<IRoute>;
@@ -24,8 +25,8 @@ class RouterAuth extends Component<IProps> {
     const targetRouterConfig = routerConfig.find((item) => {
       if (!item.children) {
         // 参数路由
-        if (item.path.includes(':')) {
-          return item.path.split('/')[1] === pathname.split('/')[1];
+        if (item.params) {
+          return pathname.includes(item.path) === true;
         }
         // 非参数路由
         return item.path === pathname;
@@ -36,7 +37,12 @@ class RouterAuth extends Component<IProps> {
     // 非登录状态，该路由不用进行权限校验
     if (targetRouterConfig && !targetRouterConfig.auth && !isLogin) {
       const { component } = targetRouterConfig;
-      return <Route exact path={pathname} component={component} />;
+      // 是否存在路由参数
+      let paramsStr: string = '';
+      if (targetRouterConfig.params && targetRouterConfig.params.length > 0) {
+        paramsStr = targetRouterConfig.params.join('');
+      }
+      return <Route exact path={`${targetRouterConfig.path}${paramsStr}`} component={component} />;
     }
     if (isLogin) {
       // 登录状态，想要跳转登录页，重定向到主页
@@ -50,9 +56,14 @@ class RouterAuth extends Component<IProps> {
             return <Redirect to="/home" />;
           } else {
             if (targetRouterConfig.children && targetRouterConfig.children.length > 0) {
-              return <Route path={pathname} component={targetRouterConfig.component} />;
+              return <Route path={targetRouterConfig.path} component={targetRouterConfig.component} />;
             }
-            return <Route exact path={pathname} component={targetRouterConfig.component} />;
+            // 是否存在路由参数
+            let paramsStr: string = '';
+            if (targetRouterConfig.params && targetRouterConfig.params.length > 0) {
+              paramsStr = targetRouterConfig.params.join('');
+            }
+            return <Route exact path={`${targetRouterConfig.path}${paramsStr}`} component={targetRouterConfig.component} />;
           }
         } else {
           // 如果路由不合法，重定向到 404 页面

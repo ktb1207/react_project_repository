@@ -22,7 +22,8 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off', // 允许ts泛型any
     '@typescript-eslint/no-unused-vars': 'off',
     'no-unused-vars': 'off',
-    '@typescript-eslint/no-empty-interface': 'off' // 允许空interface
+    '@typescript-eslint/no-empty-interface': 'off', // 允许空interface
+    '@typescript-eslint/no-inferrable-types': "off" // 关闭类型推断
   },
   settings: {
     react: {

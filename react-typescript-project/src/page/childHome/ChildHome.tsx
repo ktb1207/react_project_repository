@@ -16,9 +16,8 @@ const ChildHome: React.FC = () => {
   const history = useHistory();
   const [playAuto] = useState<boolean>(true);
   const hrefEquipment = (typeNum: number): void => {
-    console.log(typeNum);
     history.push({
-      pathname: '/equipmentPage'
+      pathname: `/equipmentPage/${typeNum}`
     });
   };
   return (

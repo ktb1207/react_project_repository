@@ -50,10 +50,11 @@ export default [
     ]
   },
   {
-    path: '/equipmentPage/:typeId',
+    path: '/equipmentPage',
     name: 'EquipmentPage',
     component: EquipmentPage,
-    auth: true
+    auth: true,
+    params: ['/:typeId']
   },
   {
     path: '/errorPage',
