@@ -23,6 +23,11 @@ class RouterAuth extends Component<IProps> {
     const isLogin: string | null = localStorage.getItem('mobile_token');
     const targetRouterConfig = routerConfig.find((item) => {
       if (!item.children) {
+        // 参数路由
+        if (item.path.includes(':')) {
+          return item.path.split('/')[1] === pathname.split('/')[1];
+        }
+        // 非参数路由
         return item.path === pathname;
       } else {
         return pathname.includes(item.path) === true;

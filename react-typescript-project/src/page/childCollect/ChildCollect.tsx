@@ -31,9 +31,13 @@ const ChildCollect: React.FC = () => {
     }
   ];
   const [equipmentData] = useState<Array<IEquipment>>(testArr);
+  // 单元格点击
+  const listClick = (item: IEquipment) => {
+    console.log(item);
+  };
   return (
     <div className="child-collect-wrp">
-      <EquipmentList equipmentArr={equipmentData}></EquipmentList>
+      <EquipmentList equipmentArr={equipmentData} cellClick={listClick}></EquipmentList>
     </div>
   );
 };
