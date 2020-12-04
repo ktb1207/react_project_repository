@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './childCollect.scss';
-import EquipmentList from '../../components/equipmentList/EquipmentList';
+import EquipmentList from '@/components/equipmentList/EquipmentList';
 
 interface IEquipment {
   name: string;

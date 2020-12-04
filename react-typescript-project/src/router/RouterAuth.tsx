@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import { Route, Redirect, withRouter, RouteComponentProps } from 'react-router-dom';
 
+interface IMeta {
+  title: string;
+}
+
 interface IRoute {
   path: string;
   name: string;
   component: React.LazyExoticComponent<any>;
   auth: boolean;
+  meta: IMeta;
   children?: Array<any>;
   params?: Array<string>;
 }

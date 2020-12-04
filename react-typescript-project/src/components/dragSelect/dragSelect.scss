@@ -1,0 +1,38 @@
+.drag-select-wrp {
+  position: relative;
+  & > .drag-line {
+    border-bottom: 4px solid #008be5;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    & > .drag-spot {
+      flex: 0 0 6px;
+      height: 18px;
+      background-color: red;
+      position: relative;
+      & > .unit {
+        color: red;
+        font-size: 26px;
+        position: absolute;
+        top: -38px;
+        transform: translateX(-50%);
+      }
+    }
+  }
+  & > .drag-squre-wrp {
+    height: auto;
+    position: relative;
+    margin-top: 8px;
+    height: 200px;
+    background-color: salmon;
+    .squre {
+      width: 0;
+      height: 0;
+      border-left: 15px solid transparent;
+      border-right: 15px solid transparent;
+      border-bottom: 30px solid #008be5;
+      position: absolute;
+      top: 0;
+    }
+  }
+}
