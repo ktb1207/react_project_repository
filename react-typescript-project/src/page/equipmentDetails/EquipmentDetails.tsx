@@ -9,9 +9,13 @@ const EquipmentDetails: React.FC<IProps> = (props: IProps) => {
   console.log(props);
   const params = useParams();
   console.log(params);
+  // 事件选择变化
+  const timeSelectChange = (selectUnit: number) => {
+    console.log('选择：' + selectUnit);
+  };
   return (
     <div className="equipment-details">
-      <DragSelect></DragSelect>
+      <DragSelect selectChange={timeSelectChange}></DragSelect>
     </div>
   );
 };

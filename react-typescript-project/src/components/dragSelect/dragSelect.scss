@@ -5,6 +5,7 @@
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;
+    align-items: flex-end;
     & > .drag-spot {
       flex: 0 0 6px;
       height: 18px;
@@ -20,7 +21,8 @@
         transition: all 0.2s;
       }
     }
-    & > .active-spot{
+    & > .active-spot {
+      height: 28px;
       background-color: red;
       & > .unit {
         color: red;
