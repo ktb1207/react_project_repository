@@ -148,6 +148,8 @@
     "dotenv-cli": "^3.1.0",
     "http-proxy-middleware": "^1.0.3",
     "less": "^3.11.1",
-    "less-loader": "^5.0.0"
+    "less-loader": "^5.0.0",
+    "sass": "^1.32.5",
+    "sass-loader": "^10.1.1"
   }
 }
