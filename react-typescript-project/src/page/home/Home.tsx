@@ -1,6 +1,7 @@
 import React, { Suspense, useEffect } from 'react';
 import { Switch, Route, useRouteMatch, NavLink } from 'react-router-dom';
-import './home.scss';
+import '@/static/iconfont/iconfont.css';
+import styles from './home.module.scss';
 
 const ChildHome = React.lazy(() => import('../childHome/ChildHome'));
 const ChildCollect = React.lazy(() => import('../childCollect/ChildCollect'));
@@ -14,8 +15,8 @@ const Home: React.FC = () => {
     console.log('updating');
   }, [path]);
   return (
-    <div className="home-page">
-      <div className="home-router-wrp">
+    <div className={styles['home-page']}>
+      <div className={styles['home-router-wrp']}>
         <Switch>
           <Suspense fallback={<div></div>}>
             <Route exact path={`/home`} component={ChildHome}></Route>
@@ -28,30 +29,30 @@ const Home: React.FC = () => {
           </Suspense>
         </Switch>
       </div>
-      <div className="home-bottom-feature">
-        <NavLink to="/home" exact activeClassName="home-active-link">
-          <p className="link-icon">
+      <div className={styles['home-bottom-feature']}>
+        <NavLink to="/home" exact activeClassName={styles['home-active-link']}>
+          <p className={styles['link-icon']}>
             <i className="iconfont iconhome"></i>
           </p>
-          <p className="link-text">首页</p>
+          <p className={styles['link-text']}>首页</p>
         </NavLink>
-        <NavLink to="/home/collect" activeClassName="home-active-link">
-          <p className="link-icon">
+        <NavLink to="/home/collect" activeClassName={styles['home-active-link']}>
+          <p className={styles['link-icon']}>
             <i className="iconfont iconshoucang"></i>
           </p>
-          <p className="link-text">收藏</p>
+          <p className={styles['link-text']}>收藏</p>
         </NavLink>
-        <NavLink to="/home/order" activeClassName="home-active-link">
-          <p className="link-icon">
+        <NavLink to="/home/order" activeClassName={styles['home-active-link']}>
+          <p className={styles['link-icon']}>
             <i className="iconfont icondingdan"></i>
           </p>
-          <p className="link-text">订单</p>
+          <p className={styles['link-text']}>订单</p>
         </NavLink>
-        <NavLink to="/home/my" activeClassName="home-active-link">
-          <p className="link-icon">
+        <NavLink to="/home/my" activeClassName={styles['home-active-link']}>
+          <p className={styles['link-icon']}>
             <i className="iconfont iconwode"></i>
           </p>
-          <p className="link-text">我的</p>
+          <p className={styles['link-text']}>我的</p>
         </NavLink>
       </div>
     </div>

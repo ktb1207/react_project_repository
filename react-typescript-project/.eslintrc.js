@@ -23,7 +23,8 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': 'off',
     'no-unused-vars': 'off',
     '@typescript-eslint/no-empty-interface': 'off', // 允许空interface
-    '@typescript-eslint/no-inferrable-types': 'off' // 关闭类型推断
+    '@typescript-eslint/no-inferrable-types': 'off', // 关闭类型推断
+    '@typescript-eslint/no-var-requires': 'off' // 允许require导入
   },
   settings: {
     react: {
