@@ -1,8 +1,11 @@
 import React from 'react';
+import { Button } from 'antd';
 import logo from './logo.svg';
-import './App.css';
+import './App.scss';
 
-function App() {
+// interface IProps {}
+// const App: React.FC<IProps> = () => {
+const App: React.FC = () => {
   return (
     <div className="App">
       <header className="App-header">
@@ -10,17 +13,13 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
           Learn React
         </a>
+        <Button>button</Button>
       </header>
     </div>
   );
-}
+};
 
 export default App;
