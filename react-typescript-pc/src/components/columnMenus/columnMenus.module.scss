@@ -1,0 +1,31 @@
+@import '@/styles/variable.scss';
+.menuWrp {
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  .topLogo {
+    flex: 0 0 $topHeight;
+    line-height: $topHeight;
+    text-align: center;
+    font-size: 24px;
+    color: #fff;
+    white-space: nowrap;
+  }
+  .menuCenter {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    .antMenu {
+      width: 100%;
+    }
+  }
+  .menuControll {
+    flex: 0 0 auto;
+    text-align: left;
+    .controlBtn {
+      background: #001529;
+      border-color: #001529;
+    }
+  }
+}
