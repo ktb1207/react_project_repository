@@ -1,11 +1,12 @@
 import React from 'react';
+import { IRoute } from './RouterAuth';
 const Login = React.lazy(() => import('../page/login/Login'));
 const PlatfromIndex = React.lazy(() => import('../page/platfromIndex/PlatfromIndex'));
 const MenuHome = React.lazy(() => import('../page/menuHome/MenuHome'));
 const ErrorPage = React.lazy(() => import('../page/errorPage/ErrorPage'));
 const About = React.lazy(() => import('../page/about/About'));
 
-export default [
+const routerMap: Array<IRoute> = [
   {
     path: '/login',
     name: 'Login',
@@ -62,3 +63,5 @@ export default [
     }
   }
 ];
+
+export default routerMap;

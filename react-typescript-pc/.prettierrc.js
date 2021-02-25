@@ -6,7 +6,7 @@ module.exports = {
   // 使用单引号
   singleQuote: true,
   // 一行最多 160 字符
-  printWidth: 160,
+  printWidth: 120,
   // 不使用缩进符，而使用空格
   useTabs: false,
   // 使用 2 个空格缩进

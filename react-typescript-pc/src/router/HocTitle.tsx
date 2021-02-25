@@ -5,7 +5,7 @@ interface InjectedProps {
   titleName: string;
 }
 
-const HocTitle = <BaseProps extends InjectedProps>(BaseComponent: React.ComponentType<BaseProps>, titleName: string) => {
+const HocTitle = <BaseProps extends InjectedProps>(BaseComponent: React.ComponentType<BaseProps>, titleName: string): React.ComponentClass<any> => {
   type HocProps = Diff<BaseProps, InjectedProps> & {
     // here you can extend hoc with new props
   };

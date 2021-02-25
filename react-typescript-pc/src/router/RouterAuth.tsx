@@ -6,7 +6,7 @@ interface IMeta {
   title: string;
 }
 
-interface IRoute {
+export interface IRoute {
   path: string;
   name: string;
   component: React.LazyExoticComponent<any>;
