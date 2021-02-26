@@ -16,32 +16,34 @@ interface IProps extends RouterProps {
 
 interface IState {
   title: string;
+  timeId: number;
 }
 
 class PlatfromIndex extends Component<IProps, IState> {
-  quoteTimeout: any;
-
+  quoteTimeout: number;
   readonly state: IState;
   public constructor(props: IProps) {
     super(props);
     this.state = {
-      title: '标题'
+      title: '标题',
+      timeId: 0
     };
+    this.quoteTimeout = 0;
   }
   // 退出登录
   quitOut = (): void => {
     this.props.showSystemLoading();
-    setTimeout(() => {
-      this.props.hideSystemLoading();
-      util.clearToken();
-      this.props.history.push('/login');
-    }, 2000);
+    this.setState({
+      timeId: window.setTimeout(() => {
+        this.props.hideSystemLoading();
+        util.clearToken();
+        this.props.history.push('/login');
+      }, 2000)
+    });
   };
 
   public componentWillUnmount() {
-    if (this.quoteTimeout) {
-      window.clearTimeout(this.quoteTimeout);
-    }
+    window.clearTimeout(this.state.timeId);
   }
 
   public render(): React.ReactElement {
