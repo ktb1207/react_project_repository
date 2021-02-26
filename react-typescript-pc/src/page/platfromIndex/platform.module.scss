@@ -10,6 +10,16 @@
     height: $topHeight;
     background-color: #fff;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.07);
+    padding-right:$contentMargin;
+    .featureWrp{
+      height: 100%;
+      width:auto;
+      float:right;
+      margin-right:12px;
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
   }
   .menuLeft {
     position: absolute;

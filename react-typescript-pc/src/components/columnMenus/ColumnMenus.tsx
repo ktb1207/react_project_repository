@@ -83,7 +83,7 @@ class ColumnMenus extends Component<IProps, IState> {
             </SubMenu>
           </Menu>
         </div>
-        <div className={menuStyle.menuControll}>
+        <div className={menuStyle.menuControll} style={{ textAlign: storeMenuStatus ? 'center' : 'right' }}>
           <Button
             className={menuStyle.controlBtn}
             type="primary"
