@@ -14,6 +14,10 @@ import {
 } from '@ant-design/icons';
 import menuStyle from './columnMenus.module.scss';
 
+type menuItem = {
+  menuName: string;
+  children?: Array<menuItem>;
+};
 interface IProps {
   menuStatus: boolean;
   onExpandMenu: () => void;
@@ -23,6 +27,7 @@ interface IProps {
 
 interface IState {
   collapsed: boolean;
+  menuArr: Array<menuItem>;
 }
 
 const { SubMenu } = Menu;
@@ -36,7 +41,68 @@ class ColumnMenus extends Component<IProps, IState> {
   public constructor(props: IProps) {
     super(props);
     this.state = {
-      collapsed: false
+      collapsed: false,
+      menuArr: [
+        {
+          menuName: '物资采购',
+          children: [
+            {
+              menuName: '采购管理'
+            },
+            {
+              menuName: '供应商管理'
+            },
+            {
+              menuName: '合同及招投标管理'
+            },
+            {
+              menuName: '价格管理'
+            },
+            {
+              menuName: '招投标过程管理'
+            }
+          ]
+        },
+        {
+          menuName: '油品销售'
+        },
+        {
+          menuName: '化工及炼油产品'
+        },
+        {
+          menuName: '天然气销售'
+        },
+        {
+          menuName: '工程技术'
+        },
+        {
+          menuName: '工程建设'
+        },
+        {
+          menuName: '资本运作'
+        },
+        {
+          menuName: '科研项目技术服务'
+        },
+        {
+          menuName: '资产管理'
+        },
+        {
+          menuName: '在线监察'
+        },
+        {
+          menuName: '风险数据库及制度'
+        },
+        {
+          menuName: '金融业务'
+        },
+        {
+          menuName: '国际贸易'
+        },
+        {
+          menuName: '海外监督'
+        }
+      ]
     };
   }
 
@@ -46,6 +112,7 @@ class ColumnMenus extends Component<IProps, IState> {
 
   public render(): React.ReactElement {
     const storeMenuStatus = !this.props.menuStatus;
+    const menuMap = this.state.menuArr;
     return (
       <div className={menuStyle.menuWrp}>
         <div className={menuStyle.topLogo}>{storeMenuStatus ? 'pro' : 'antd pro'}</div>
@@ -58,29 +125,23 @@ class ColumnMenus extends Component<IProps, IState> {
             theme="dark"
             inlineCollapsed={storeMenuStatus}
           >
-            <Menu.Item key="1" icon={<PieChartOutlined />}>
-              Option 1
-            </Menu.Item>
-            <Menu.Item key="2" icon={<DesktopOutlined />}>
-              Option 2
-            </Menu.Item>
-            <Menu.Item key="3" icon={<ContainerOutlined />}>
-              Option 3
-            </Menu.Item>
-            <SubMenu key="sub1" icon={<MailOutlined />} title="Navigation One">
-              <Menu.Item key="5">Option 5</Menu.Item>
-              <Menu.Item key="6">Option 6</Menu.Item>
-              <Menu.Item key="7">Option 7</Menu.Item>
-              <Menu.Item key="8">Option 8</Menu.Item>
-            </SubMenu>
-            <SubMenu key="sub2" icon={<AppstoreOutlined />} title="Navigation Two">
-              <Menu.Item key="9">Option 9</Menu.Item>
-              <Menu.Item key="10">Option 10</Menu.Item>
-              <SubMenu key="sub3" title="Submenu">
-                <Menu.Item key="11">Option 11</Menu.Item>
-                <Menu.Item key="12">Option 12</Menu.Item>
-              </SubMenu>
-            </SubMenu>
+            {menuMap.map((item, index) => {
+              if (item.children) {
+                return (
+                  <SubMenu key={index} icon={<MailOutlined />} title={item.menuName}>
+                    {item.children.map((childItem, cInx) => {
+                      return <Menu.Item key={cInx}>{childItem.menuName}</Menu.Item>;
+                    })}
+                  </SubMenu>
+                );
+              } else {
+                return (
+                  <Menu.Item key={index} icon={<PieChartOutlined />}>
+                    {item.menuName}
+                  </Menu.Item>
+                );
+              }
+            })}
           </Menu>
         </div>
         <div className={menuStyle.menuControll} style={{ textAlign: storeMenuStatus ? 'center' : 'right' }}>

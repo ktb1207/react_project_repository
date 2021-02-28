@@ -32,7 +32,7 @@ const Login: React.FC<IProps> = (props: IProps) => {
     setTimeout(() => {
       util.setToken(values.username + values.password);
       history.push({
-        pathname: `/`
+        pathname: `/menuHome`
       });
       dispatch(hideLoading());
     }, 800);
