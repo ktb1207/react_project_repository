@@ -117,6 +117,7 @@ class MenuHome extends Component<IProps, IState> {
   }
   public componentWillUnmount() {
     window.clearTimeout(this.state.timeId);
+    console.log('home unmount');
   }
 
   public render(): React.ReactElement {
