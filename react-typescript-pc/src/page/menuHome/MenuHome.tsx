@@ -71,9 +71,7 @@ class MenuHome extends Component<IProps, IState> {
       }, 2000)
     });
   };
-  public componentDidUpdate() {
-    console.log('菜单home有更新。。。');
-  }
+
   public componentDidMount() {
     const oldArr = this.basicMenuSub;
     const configRouter = routerMap;
@@ -104,7 +102,19 @@ class MenuHome extends Component<IProps, IState> {
       menusArr: [...oldArr]
     });
   }
-
+  public shouldComponentUpdate(nextProps: IProps, nextState: IState) {
+    if (
+      nextProps.menuStatus !== this.props.menuStatus ||
+      nextState.menusArr.length !== this.state.menusArr.length ||
+      nextState.childRoutesArr.length !== this.state.childRoutesArr.length
+    ) {
+      return true;
+    }
+    return false;
+  }
+  public componentDidUpdate() {
+    console.log('菜单home有更新。。。');
+  }
   public componentWillUnmount() {
     window.clearTimeout(this.state.timeId);
   }

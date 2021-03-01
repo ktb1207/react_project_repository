@@ -5,7 +5,6 @@ import routerMap from './routerMap';
 
 class RouterConfig extends Component {
   render(): React.ReactElement {
-    console.log(<RouterAuth routerConfig={routerMap}></RouterAuth>);
     return (
       <Fragment>
         <Suspense fallback={<div>Loading...</div>}>

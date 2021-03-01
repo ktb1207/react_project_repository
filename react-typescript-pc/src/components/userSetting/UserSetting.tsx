@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Menu, Dropdown } from 'antd';
 import { UserOutlined, SettingOutlined, LogoutOutlined } from '@ant-design/icons';
 import settingStyle from './userSetting.module.scss';
@@ -9,7 +9,6 @@ interface IProps {
 }
 
 const UserSetting: React.FC<IProps> = (props: IProps) => {
-  console.log(props);
   // 退出登录
   const quitOut = (): void => {
     props.userQuitOut();
@@ -30,6 +29,12 @@ const UserSetting: React.FC<IProps> = (props: IProps) => {
       </Menu.Item>
     </Menu>
   );
+  useEffect(() => {
+    console.log('user setting effect');
+    return () => {
+      console.log('user setting unmount');
+    };
+  }, []);
   return (
     <Dropdown overlay={menu} placement="bottomRight" arrow>
       <div className={settingStyle.userInfo}>

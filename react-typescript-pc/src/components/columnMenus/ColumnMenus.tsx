@@ -37,7 +37,6 @@ interface IProps extends RouteComponentProps {
 
 interface IState {
   collapsed: boolean;
-  defaultMenuKey: string;
 }
 
 const { SubMenu } = Menu;
@@ -52,8 +51,7 @@ class ColumnMenus extends Component<IProps, IState> {
   public constructor(props: IProps) {
     super(props);
     this.state = {
-      collapsed: false,
-      defaultMenuKey: ''
+      collapsed: false
     };
   }
   // 菜单展开/收起
@@ -67,40 +65,9 @@ class ColumnMenus extends Component<IProps, IState> {
       this.props.history.push({
         pathname: menuUrl
       });
-      this.setState(
-        {
-          defaultMenuKey: menuUrl
-        },
-        () => {
-          console.log('当前menu kty:' + this.state.defaultMenuKey);
-        }
-      );
     }
   };
 
-  public componentDidMount() {
-    // 设置初始默认选中菜单项
-    if (this.props.menuArr.length > 0) {
-      const indexOne = this.props.menuArr[0];
-      this.setState(
-        {
-          defaultMenuKey: indexOne.children.length > 0 ? (indexOne.children[0].pathName as string) : ''
-        },
-        () => {
-          console.log('初始化选择菜单：' + this.state.defaultMenuKey);
-        }
-      );
-    }
-  }
-  // public shouldComponentUpdate(nextProps: IProps, nextState: IState) {
-  //   if (nextState.collapsed === this.state.collapsed || nextState.defaultMenuKey === this.state.defaultMenuKey) {
-  //     return false;
-  //   }
-  //   if (nextProps.menuStatus === this.props.menuStatus || nextProps.menuArr.length === this.props.menuArr.length) {
-  //     return false;
-  //   }
-  //   return true;
-  // }
   public componentDidUpdate() {
     console.log(this.props.history.location.pathname);
   }
