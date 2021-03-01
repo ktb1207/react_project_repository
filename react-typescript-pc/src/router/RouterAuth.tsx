@@ -12,8 +12,12 @@ export interface IRoute {
   component: React.LazyExoticComponent<any>;
   auth: boolean;
   meta: IMeta;
+  /*子路由*/
   children?: Array<IRoute>;
+  /*路由参数*/
   params?: Array<string>;
+  /*子路由分类*/
+  childClassify?: number;
 }
 export interface IProps extends RouteComponentProps {
   routerConfig: Array<IRoute>;
@@ -27,7 +31,6 @@ class RouterAuth extends Component<IProps> {
   render(): React.ReactElement {
     const { routerConfig, location } = this.props;
     const { pathname } = location;
-    console.log('pathName:' + pathname);
     const isLogin: string | null = localStorage.getItem('system_koken');
     const targetRouterConfig = routerConfig.find((item) => {
       if (!item.children) {
@@ -41,8 +44,6 @@ class RouterAuth extends Component<IProps> {
         return pathname.includes(item.path) === true;
       }
     });
-    console.log('找到了router项：----');
-    console.log(targetRouterConfig);
     // 非登录状态，该路由不用进行权限校验
     if (targetRouterConfig && !targetRouterConfig.auth && !isLogin) {
       // 获取路由组件

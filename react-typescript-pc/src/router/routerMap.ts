@@ -1,5 +1,6 @@
 import React from 'react';
 import { IRoute } from './RouterAuth';
+import { menuHomeChildClassify } from '@/enums/index';
 const Login = React.lazy(() => import('../page/login/Login'));
 const PlatfromIndex = React.lazy(() => import('../page/platfromIndex/PlatfromIndex'));
 const MenuHome = React.lazy(() => import('../page/menuHome/MenuHome'));
@@ -47,49 +48,64 @@ const routerMap: Array<IRoute> = [
     },
     children: [
       {
-        path: '/a/a',
-        name: 'A',
+        path: '/menuHome/a/a',
+        name: '采购管理',
         component: Demo,
         auth: true,
         meta: {
           title: 'a'
-        }
+        },
+        childClassify: menuHomeChildClassify.A
       },
       {
-        path: '/a/b',
-        name: 'B',
+        path: '/menuHome/a/b',
+        name: '供应商管理',
         component: Demo,
         auth: true,
         meta: {
           title: 'b'
-        }
+        },
+        childClassify: menuHomeChildClassify.A
       },
       {
-        path: '/a/c',
-        name: 'C',
+        path: '/menuHome/a/c',
+        name: '合同及招投标管理',
         component: Demo,
         auth: true,
         meta: {
           title: 'C'
-        }
+        },
+        childClassify: menuHomeChildClassify.A
       },
       {
-        path: '/a/d',
-        name: 'd',
+        path: '/menuHome/a/d',
+        name: '价格管理',
         component: Demo,
         auth: true,
         meta: {
           title: 'd'
-        }
+        },
+        childClassify: menuHomeChildClassify.A
       },
       {
-        path: '/a/e',
-        name: 'e',
+        path: '/menuHome/a/e',
+        name: '招投标过程管理',
         component: Demo,
         auth: true,
         meta: {
           title: 'e'
-        }
+        },
+        childClassify: menuHomeChildClassify.A
+      },
+      {
+        path: '/menuHome/b/a',
+        name: 'test',
+        component: Demo,
+        auth: true,
+        meta: {
+          title: 'e'
+        },
+        childClassify: menuHomeChildClassify.B
       }
     ]
   },

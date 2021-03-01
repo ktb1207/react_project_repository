@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { withRouter, RouteComponentProps } from 'react-router';
+import { RouterProps } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { expandMenu, hiddenMenu } from '@/store/action';
@@ -14,20 +16,28 @@ import {
 } from '@ant-design/icons';
 import menuStyle from './columnMenus.module.scss';
 
-type menuItem = {
+export type MenuItem = {
   menuName: string;
-  children?: Array<menuItem>;
+  pathName?: string;
+  // 声明包含分类路由
+  childClassify: number;
+  // sub唯一key标识
+  subUniqueKey: string;
+  children: Array<MenuItem>;
+  iconName?: string;
 };
-interface IProps {
+
+interface IProps extends RouteComponentProps {
   menuStatus: boolean;
   onExpandMenu: () => void;
   onHiddenMenu: () => void;
   testName: string;
+  menuArr: Array<MenuItem>;
 }
 
 interface IState {
   collapsed: boolean;
-  menuArr: Array<menuItem>;
+  defaultMenuKey: string;
 }
 
 const { SubMenu } = Menu;
@@ -35,108 +45,103 @@ const { SubMenu } = Menu;
 class ColumnMenus extends Component<IProps, IState> {
   // default props value
   static defaultProps = {
-    testName: 'test'
+    testName: 'test',
+    menuArr: []
   };
   readonly state: IState;
   public constructor(props: IProps) {
     super(props);
     this.state = {
       collapsed: false,
-      menuArr: [
-        {
-          menuName: '物资采购',
-          children: [
-            {
-              menuName: '采购管理'
-            },
-            {
-              menuName: '供应商管理'
-            },
-            {
-              menuName: '合同及招投标管理'
-            },
-            {
-              menuName: '价格管理'
-            },
-            {
-              menuName: '招投标过程管理'
-            }
-          ]
-        },
-        {
-          menuName: '油品销售'
-        },
-        {
-          menuName: '化工及炼油产品'
-        },
-        {
-          menuName: '天然气销售'
-        },
-        {
-          menuName: '工程技术'
-        },
-        {
-          menuName: '工程建设'
-        },
-        {
-          menuName: '资本运作'
-        },
-        {
-          menuName: '科研项目技术服务'
-        },
-        {
-          menuName: '资产管理'
-        },
-        {
-          menuName: '在线监察'
-        },
-        {
-          menuName: '风险数据库及制度'
-        },
-        {
-          menuName: '金融业务'
-        },
-        {
-          menuName: '国际贸易'
-        },
-        {
-          menuName: '海外监督'
-        }
-      ]
+      defaultMenuKey: ''
     };
   }
-
+  // 菜单展开/收起
   toggleCollapsed = (): void => {
     this.props.menuStatus ? this.props.onHiddenMenu() : this.props.onExpandMenu();
   };
 
+  // 菜单点击跳转
+  menuClick = (menuUrl: string | undefined): void => {
+    if (menuUrl) {
+      this.props.history.push({
+        pathname: menuUrl
+      });
+      this.setState(
+        {
+          defaultMenuKey: menuUrl
+        },
+        () => {
+          console.log('当前menu kty:' + this.state.defaultMenuKey);
+        }
+      );
+    }
+  };
+
+  public componentDidMount() {
+    // 设置初始默认选中菜单项
+    if (this.props.menuArr.length > 0) {
+      const indexOne = this.props.menuArr[0];
+      this.setState(
+        {
+          defaultMenuKey: indexOne.children.length > 0 ? (indexOne.children[0].pathName as string) : ''
+        },
+        () => {
+          console.log('初始化选择菜单：' + this.state.defaultMenuKey);
+        }
+      );
+    }
+  }
+  // public shouldComponentUpdate(nextProps: IProps, nextState: IState) {
+  //   if (nextState.collapsed === this.state.collapsed || nextState.defaultMenuKey === this.state.defaultMenuKey) {
+  //     return false;
+  //   }
+  //   if (nextProps.menuStatus === this.props.menuStatus || nextProps.menuArr.length === this.props.menuArr.length) {
+  //     return false;
+  //   }
+  //   return true;
+  // }
+  public componentDidUpdate() {
+    console.log(this.props.history.location.pathname);
+  }
+
   public render(): React.ReactElement {
     const storeMenuStatus = !this.props.menuStatus;
-    const menuMap = this.state.menuArr;
-    return (
+    const menuMap = this.props.menuArr;
+    const testKey: string = this.props.history.location.pathname;
+    return menuMap.length > 0 ? (
       <div className={menuStyle.menuWrp}>
         <div className={menuStyle.topLogo}>{storeMenuStatus ? 'pro' : 'antd pro'}</div>
         <div className={menuStyle.menuCenter}>
           <Menu
             className={menuStyle.antMenu}
-            defaultSelectedKeys={['1']}
-            defaultOpenKeys={['sub1']}
+            defaultSelectedKeys={[testKey]}
+            selectedKeys={[testKey]}
+            defaultOpenKeys={['A']}
             mode="inline"
             theme="dark"
             inlineCollapsed={storeMenuStatus}
           >
-            {menuMap.map((item, index) => {
-              if (item.children) {
+            {menuMap.map((item, sunIndex) => {
+              if (item.children.length > 1) {
                 return (
-                  <SubMenu key={index} icon={<MailOutlined />} title={item.menuName}>
-                    {item.children.map((childItem, cInx) => {
-                      return <Menu.Item key={cInx}>{childItem.menuName}</Menu.Item>;
+                  <SubMenu key={item.subUniqueKey} icon={<MailOutlined />} title={item.menuName}>
+                    {item.children.map((childItem) => {
+                      return (
+                        <Menu.Item key={childItem.pathName} onClick={() => this.menuClick(childItem.pathName)}>
+                          {childItem.menuName}
+                        </Menu.Item>
+                      );
                     })}
                   </SubMenu>
                 );
               } else {
                 return (
-                  <Menu.Item key={index} icon={<PieChartOutlined />}>
+                  <Menu.Item
+                    key={item.children.length > 0 ? (item.children[0].pathName as string) : sunIndex}
+                    icon={<PieChartOutlined />}
+                    onClick={() => this.menuClick(item.children[0].pathName)}
+                  >
                     {item.menuName}
                   </Menu.Item>
                 );
@@ -155,6 +160,8 @@ class ColumnMenus extends Component<IProps, IState> {
           </Button>
         </div>
       </div>
+    ) : (
+      <span>null</span>
     );
   }
 }
@@ -173,4 +180,4 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     onHiddenMenu: () => dispatch(hiddenMenu())
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(ColumnMenus);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ColumnMenus));

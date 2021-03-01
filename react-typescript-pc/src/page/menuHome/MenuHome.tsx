@@ -3,13 +3,19 @@ import { RouterProps, Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import ColumnMenus from '@/components/columnMenus/ColumnMenus';
+import { MenuItem } from '@/components/columnMenus/ColumnMenus';
 import UserSetting from '@/components/userSetting/UserSetting';
 import { showLoading, hideLoading } from '@/store/action';
 import util from '@/utils/util';
+import routerMap from '@/router/routerMap';
+import { IRoute } from '@/router/RouterAuth';
+import { menuHomeChildClassify } from '@/enums/index';
 import homeStyle from './menuHome.module.scss';
 
 // 二级子路由
 const Demo = React.lazy(() => import('@/childRouterPage/aCategory/demo/Demo'));
+// 错误路由
+const errorView = React.lazy(() => import('@/page/errorPage/ErrorPage'));
 
 interface IProps extends RouterProps {
   menuStatus: boolean;
@@ -20,18 +26,39 @@ interface IProps extends RouterProps {
 interface IState {
   title: string;
   timeId: number;
+  // 菜单数组
+  menusArr: Array<MenuItem>;
+  // 子路由
+  childRoutesArr: Array<IRoute>;
 }
 
 class MenuHome extends Component<IProps, IState> {
-  quoteTimeout: number;
+  basicMenuSub: Array<MenuItem>;
   readonly state: IState;
   public constructor(props: IProps) {
     super(props);
     this.state = {
       title: '标题',
-      timeId: 0
+      timeId: 0,
+      menusArr: [],
+      childRoutesArr: []
     };
-    this.quoteTimeout = 0;
+    this.basicMenuSub = [
+      {
+        menuName: '物资采购',
+        iconName: 'iconfont1',
+        childClassify: menuHomeChildClassify.A,
+        children: [],
+        subUniqueKey: 'A'
+      },
+      {
+        menuName: '油品销售',
+        iconName: 'iconfont2',
+        childClassify: menuHomeChildClassify.B,
+        children: [],
+        subUniqueKey: 'B'
+      }
+    ];
   }
   // 退出登录
   quitOut = (): void => {
@@ -44,15 +71,48 @@ class MenuHome extends Component<IProps, IState> {
       }, 2000)
     });
   };
+  public componentDidUpdate() {
+    console.log('菜单home有更新。。。');
+  }
+  public componentDidMount() {
+    const oldArr = this.basicMenuSub;
+    const configRouter = routerMap;
+    let menuHomeChildRouter: Array<IRoute> = [];
+    configRouter.forEach((item) => {
+      if (item.name === 'MenuHome') {
+        menuHomeChildRouter = item.children as Array<IRoute>;
+      }
+    });
+    this.setState({
+      childRoutesArr: [...menuHomeChildRouter]
+    });
+    for (let oi = 0, lg = oldArr.length; oi < lg; oi++) {
+      for (let ci = 0, cl = menuHomeChildRouter.length; ci < cl; ci++) {
+        if (oldArr[oi].childClassify === menuHomeChildRouter[ci].childClassify) {
+          const childObj = {
+            menuName: menuHomeChildRouter[ci].name,
+            pathName: menuHomeChildRouter[ci].path,
+            childClassify: oldArr[oi].childClassify,
+            children: [],
+            subUniqueKey: ''
+          };
+          (oldArr[oi].children as Array<MenuItem>).push(childObj);
+        }
+      }
+    }
+    this.setState({
+      menusArr: [...oldArr]
+    });
+  }
 
   public componentWillUnmount() {
     window.clearTimeout(this.state.timeId);
   }
 
   public render(): React.ReactElement {
-    console.log(this.props);
     // 左侧菜单宽度
     const menuWidth = this.props.menuStatus ? '208px' : '68px';
+    const childRouteMap = this.state.childRoutesArr;
     return (
       <div className={`root-router-page ${homeStyle.platfromWrp}`}>
         {/* header */}
@@ -65,7 +125,7 @@ class MenuHome extends Component<IProps, IState> {
         </div>
         {/* left menu */}
         <div className={homeStyle.menuLeft} style={{ width: menuWidth }}>
-          <ColumnMenus></ColumnMenus>
+          {this.state.menusArr.length > 0 && <ColumnMenus menuArr={this.state.menusArr}></ColumnMenus>}
         </div>
         {/* content */}
         <div className={homeStyle.mainContent}>
@@ -74,9 +134,10 @@ class MenuHome extends Component<IProps, IState> {
           <div className={homeStyle.childRootWrp}>
             <Suspense fallback={<div></div>}>
               <Switch>
-                <Route path={'/menuHome/a/a'} component={Demo}></Route>
-                <Route path="/menuHome/*">meiyou</Route>
-                <Route path="*">meiyou123456</Route>
+                {childRouteMap.map((item, index) => {
+                  return <Route exact key={index} path={item.path} component={item.component}></Route>;
+                })}
+                <Route path="*" component={errorView}></Route>
               </Switch>
             </Suspense>
           </div>
