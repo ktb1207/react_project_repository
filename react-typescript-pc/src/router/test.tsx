@@ -7,7 +7,7 @@
  * 返回全部页面
  * */
 import React, { Component } from 'react';
-import { Route, Redirect, withRouter, RouteComponentProps } from 'react-router-dom';
+import { Route, Redirect, Switch } from 'react-router-dom';
 
 export type IRoute = {
   path: string;
@@ -53,13 +53,12 @@ class GenerateRoute extends Component<IProps, IState> {
     const routerMap = filterArr.map((item: IRoute) => {
       return <Route key={item.path} exact={item.children === undefined} path={item.path} component={item.component} />;
     });
-    routerMap.push(<Redirect to="/errorPage" key="/errorRedirect"></Redirect>);
     console.log(routerMap.length);
     return (
-      <>
+      <Switch>
         {routerMap}
-        {/* <Redirect to="/errorPage"></Redirect> */}
-      </>
+        <Redirect to="/errorPage"></Redirect>
+      </Switch>
     );
   }
 }

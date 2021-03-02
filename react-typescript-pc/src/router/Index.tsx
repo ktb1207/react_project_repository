@@ -10,10 +10,11 @@ class RouterConfig extends Component {
       <Fragment>
         <Suspense fallback={<div>Loading...</div>}>
           <Router>
-            <Switch>
-              {/* <RouterAuth routerConfig={routerMap}></RouterAuth> */}
+            {/* <Switch>
+              <RouterAuth routerConfig={routerMap}></RouterAuth>
               <GenerateRoute routerConfig={routerMap}></GenerateRoute>
-            </Switch>
+            </Switch> */}
+            {routerMap.length > 0 && <GenerateRoute routerConfig={routerMap}></GenerateRoute>}
           </Router>
         </Suspense>
       </Fragment>
