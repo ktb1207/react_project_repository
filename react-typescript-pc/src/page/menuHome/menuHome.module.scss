@@ -45,7 +45,7 @@
     flex-wrap: nowrap;
     .childRootWrp {
       flex: 1 1 auto;
-      height: 1210px;
+      min-height: 100%;
       background-color: #fff;
     }
     .hiddenContent {

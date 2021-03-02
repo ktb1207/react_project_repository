@@ -12,8 +12,6 @@ import { IRoute } from '@/router/RouterAuth';
 import { menuHomeChildClassify } from '@/enums/index';
 import homeStyle from './menuHome.module.scss';
 
-// 二级子路由
-const Demo = React.lazy(() => import('@/childRouterPage/aCategory/demo/Demo'));
 // 错误路由
 const errorView = React.lazy(() => import('@/page/errorPage/ErrorPage'));
 
