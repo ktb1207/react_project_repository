@@ -99,7 +99,7 @@ const routerMap: Array<IRoute> = [
       },
       {
         path: '/menuHome/b/a',
-        name: 'test',
+        name: '油品销售',
         component: Demo,
         auth: true,
         meta: {

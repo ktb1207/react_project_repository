@@ -1,11 +1,11 @@
 import React, { Component, Suspense } from 'react';
-import { RouterProps, Route, Switch, Redirect } from 'react-router-dom';
+import { RouteComponentProps, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import ColumnMenus from '@/components/columnMenus/ColumnMenus';
 import { MenuItem } from '@/components/columnMenus/ColumnMenus';
 import UserSetting from '@/components/userSetting/UserSetting';
-import { showLoading, hideLoading } from '@/store/action';
+import { showLoading, hideLoading, quitLogin } from '@/store/action';
 import util from '@/utils/util';
 import routerMap from '@/router/routerMap';
 import { IRoute } from '@/router/RouterAuth';
@@ -15,10 +15,11 @@ import homeStyle from './menuHome.module.scss';
 // 错误路由
 const errorView = React.lazy(() => import('@/page/errorPage/ErrorPage'));
 
-interface IProps extends RouterProps {
+interface IProps extends RouteComponentProps {
   menuStatus: boolean;
   showSystemLoading: () => void;
   hideSystemLoading: () => void;
+  quitStoreLogin: () => void;
 }
 
 interface IState {
@@ -65,7 +66,7 @@ class MenuHome extends Component<IProps, IState> {
       timeId: window.setTimeout(() => {
         this.props.hideSystemLoading();
         util.clearToken();
-        this.props.history.push('/login');
+        this.props.quitStoreLogin();
       }, 2000)
     });
   };
@@ -167,7 +168,8 @@ const mapStateToProps = (state: { menuStatus: boolean }): { menuStatus: boolean 
 const mapDispatchToProps = (dispatch: Dispatch) => {
   return {
     showSystemLoading: () => dispatch(showLoading()),
-    hideSystemLoading: () => dispatch(hideLoading())
+    hideSystemLoading: () => dispatch(hideLoading()),
+    quitStoreLogin: () => dispatch(quitLogin())
   };
 };
 
