@@ -11,6 +11,7 @@
     "strictNullChecks": true,
     "noImplicitAny": true,
     "noImplicitThis": false,
+    "strictBindCallApply": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
