@@ -181,4 +181,74 @@
 - 3. Omit 辅助类型
 - 4. 更智能的联合类型检查
 
-[typescript3.6]()
+[typescript3.7]()
+
+> 新增点：
+
+- 1. 可选链 ?.
+```js
+let x = foo?.bar.baz();
+```
+- 2. 空值合并 ??
+```js
+let x = foo ?? bar();
+```
+- 3. 断言函数
+- 4. --declaration,选项允许我们从 TypeScript 源文件（诸如 .ts 和 .tsx 文件）生成 .d.ts 文件（声明文件）
+- 5. --allowJs,选项允许混合使用 TypeScript 和 JavaScript 文件。
+- 6. // @ts-nocheck,允许我们在 TypeScript 文件的顶部添加一行,注释来关闭语义检查
+
+[typescript3.8]()
+
+> 新增点：
+
+- 1. 类型导入和导出
+- 2. 类私有变量
+```js
+class Person {
+    #name: string
+
+    constructor(name: string) {
+        this.#name = name;
+    }
+
+    greet() {
+        console.log(`Hello, my name is ${this.#name}!`);
+    }
+}
+```
+- 3. export * as ns 语法
+```js
+import * as utilities from "./utilities.js";
+export { utilities };
+```
+- 4. 顶层await
+- 5. JSDoc 属性修饰词
+
+[typescript3.9]()
+
+> 新增点：
+
+- 1. 速度优化
+- 2. // @ts-expect-error 注释,当一行代码带有// @ts-expect-error注释时，TypeScript不会提示上例的错误；
+- 3. 在JavaScript中自动导入CommonJS模块
+
+[typescript4.0]()
+
+> 新增点：
+
+- 1. 可变参元组类型
+- 2. 标签元组元素
+- 3. 从构造函数中推断类属性
+- 4. 断路赋值运算符
+```js
+a = a && b;
+a = a || b;
+a = a ?? b;
+```
+- 5. catch语句中的unknown类型
+- 6. 自定义JSX工厂
+- 7. 对启用了--noEmitOnError的`build模式进行速度优化,当启用了--noEmitOnError时，前一次失败构建的信息不会被缓存到.tsbuildinfo文件中。
+- 8. 重写了TypeScript官网
+
+[typescript4.1]()
