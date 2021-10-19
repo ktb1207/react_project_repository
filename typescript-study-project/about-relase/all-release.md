@@ -252,3 +252,98 @@ a = a ?? b;
 - 8. 重写了TypeScript官网
 
 [typescript4.1]()
+
+> 新增点：
+
+- 1. 模版字面量类型
+```js
+type World = 'world';
+
+type Greeting = `hello ${World}`;
+```
+- 2. checkJs 默认启用 allowJs
+- 3. React 17 JSX 工厂
+```js
+// TypeScript 4.1 通过以下两个编译选项来支持 React 17 中的jsx和jsxs工厂函数：
+// react-jsx
+// react-jsxdev
+// 这两个编译选项分别用于生产环境和开发环境中。
+// 用于生产环境的tsconfig.json如下：
+{
+    "compilerOptions": {
+        "module": "esnext",
+        "target": "es2015",
+        "jsx": "react-jsx",
+        "strict": true
+    },
+    "include": ["./**/*"]
+}
+// 另外一个用于开发环境的tsconfig.json如下：
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "jsx": "react-jsxdev"
+    }
+}
+```
+
+[typescript4.2]()
+
+> 新增点：
+
+- 1. 解构出来的变量可以被明确地标记为未使用的
+```js
+// 可以使用下划线（_ 字符）将解构变量标记为未使用的。
+let [_first, second] = getValues();
+// 如果 _first 未被使用，那么在启用了 noUnusedLocals 时 TypeScript 会产生一个错误。
+// 现在，TypeScript 会识别出使用了下划线的 _first 变量是有意的未使用的变量。
+```
+
+[typescript4.3]()
+
+> 新增点：
+
+- 1. 拆分属性的写入类型
+```js
+class Thing {
+    #size = 0;
+
+    get size(): number {
+        return this.#size;
+    }
+
+    set size(value: string | number | boolean) {
+        let num = Number(value);
+
+        // Don't allow NaN and stuff.
+        if (!Number.isFinite(num)) {
+            this.#size = 0;
+            return;
+        }
+
+        this.#size = num;
+    }
+}
+```
+- 2. override, 当一个方法被标记为 override，TypeScript 会确保在基类中存在同名的方法。
+```js
+class SomeComponent {
+    show() {
+        // ...
+    }
+    hide() {
+        // ...
+    }
+}
+
+class SpecializedComponent extends SomeComponent {
+    override show() {
+        // ...
+    }
+    override hide() {
+        // ...
+    }
+}
+```
+- 3. --noImplicitOverride,当启用了该选项，如果覆写了父类中的方法但没有添加 override 关键字，则会产生错误。
+
