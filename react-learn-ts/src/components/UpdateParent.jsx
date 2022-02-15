@@ -15,13 +15,13 @@ class UpdateParent extends React.Component {
   // props,state为更新后的参数
   // 必须返回一个对象来更新state
   static getDerivedStateFromProps(nextProps, nextState) {
-    console.log(nextProps);
-    console.log(nextState);
+    // console.log(nextProps);
+    // console.log(nextState);
     return nextState;
   }
   // 初始化挂载 -4
   componentDidMount() {
-    console.log('mount');
+    // console.log('mount');
   }
   // 更新阶段 -2
   // 默认返回true
@@ -38,20 +38,20 @@ class UpdateParent extends React.Component {
   // 挂载不执行
   // 更新后立即调用
   componentDidUpdate(prevProps, prevState, shapshot) {
-    console.log('parent did update');
+    // console.log('parent did update');
   }
   // + 1
   // state值不改变仍会触发shouldComponentUpdate，render componentDidUpdate等更新流程, 但是经过react diff 比对前后render 返回UI结构，不会执行DOM更新。
   // state值不改变，同样会触发子组件getDerivedStateFromProps，shouldComponentUpdate，render componentDidUpdate等更新流程。
   handleClick() {
     this.setState((state) => ({
-      clickNum: state.clickNum + 1,
-      // clickNum: state.clickNum,
+      // clickNum: state.clickNum + 1,
+      clickNum: state.clickNum,
     }));
   }
   // 初始化挂载 -3 更新 -3
   render() {
-    console.log('parent render runing');
+    // console.log('parent render runing');
     return (
       <div>
         <h2>一、组件更新流程分析</h2>
