@@ -1,48 +1,64 @@
 import React from 'react';
 
-class SetState extends React.Component{
-  constructor(props){
+class SetState extends React.Component {
+  constructor(props) {
     super(props);
     this.state = {
-      stateOne: 1
-    }
+      stateOne: 1,
+    };
     this.btnOne = React.createRef();
+    this.handleClick = this.handleClick.bind(this);
   }
 
-  componentDidMount(){
-    this.setState({
-      stateOne: this.state.stateOne + 1
-    })
-    this.setState({
-      stateOne: this.state.stateOne + 2
-    })
-    this.setState({
-      stateOne: this.state.stateOne + 3
-    })
-    this.btnOne.current.addEventListener('click', () => {
-      this.setState({
-        stateOne: this.state.stateOne + 1
-      })
-      this.setState({
-        stateOne: this.state.stateOne + 1
-      })
-      this.setState({
-        stateOne: this.state.stateOne + 1
-      })
-      console.log(this.state.stateOne)
-    })
+  handleClick() {
+    // this.state.stateOne += 1;
+    this.setState(
+      {
+        stateOne: this.state.stateOne + 1,
+      },
+      () => {
+        console.log(this.state.stateOne);
+      }
+    );
   }
 
-  render(){
-    return <div>
-      <h2>三、setState正确使用姿势</h2>
-      <hr />
-      <p>
+  componentDidMount() {
+    this.setState({
+      stateOne: this.state.stateOne + 1,
+    });
+    // this.setState({
+    //   stateOne: this.state.stateOne + 2
+    // })
+    // this.setState({
+    //   stateOne: this.state.stateOne + 3
+    // })
+    // this.btnOne.current.addEventListener('click', () => {
+    //   this.setState({
+    //     stateOne: this.state.stateOne + 1
+    //   })
+    //   this.setState({
+    //     stateOne: this.state.stateOne + 1
+    //   })
+    //   this.setState({
+    //     stateOne: this.state.stateOne + 1
+    //   })
+    //   console.log(this.state.stateOne)
+    // })
+  }
 
-        <span>stateOne值：{this.state.stateOne}</span>
-        <button ref={this.btnOne}>click</button>
-      </p>
-    </div>
+  render() {
+    return (
+      <div>
+        <h2>三、setState正确使用姿势</h2>
+        <hr />
+        <p>
+          <span>stateOne值：{this.state.stateOne}</span>
+          <button ref={this.btnOne} onClick={this.handleClick}>
+            click
+          </button>
+        </p>
+      </div>
+    );
   }
 }
 

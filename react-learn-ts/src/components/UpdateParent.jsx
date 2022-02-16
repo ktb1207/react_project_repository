@@ -1,5 +1,6 @@
 import React from 'react';
 import UpdateChildOne from './UpdateChildOne';
+import UpdateChildTwo from './UpdateChildTwo';
 
 class UpdateParent extends React.Component {
   // 初始化挂载调用 -1
@@ -62,6 +63,7 @@ class UpdateParent extends React.Component {
           <button onClick={this.handleClick}>点击+1</button>
         </div>
         <UpdateChildOne clickNum={this.state.clickNum}></UpdateChildOne>
+        <UpdateChildTwo></UpdateChildTwo>
       </div>
     );
   }
