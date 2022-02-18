@@ -2,6 +2,7 @@
 import UpdateParent from './components/UpdateParent';
 import EventSequence from './components/EventSequence';
 import SetState from './components/SetState';
+import UseHook from './components/UseHook';
 function App() {
   console.log('app render');
   return (
@@ -9,6 +10,7 @@ function App() {
       <UpdateParent></UpdateParent>
       <EventSequence></EventSequence>
       <SetState></SetState>
+      <UseHook></UseHook>
     </div>
   );
 }
