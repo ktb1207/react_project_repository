@@ -352,3 +352,11 @@ function TextInputWithFocusButton() {
 - 建议将修改 DOM 的操作里放到 useLayoutEffect 里，而不是 useEffect，
    + 通过 useLayoutEffect 可以拿到最新的 DOM 节点，并且在此时对 DOM 进行样式上的修改只有一次回流、重绘的代价。
    + 放在 useEffect 里，useEffect 的函数会在组件渲染到屏幕之后执行，此时对 DOM 进行修改，会触发浏览器再次进行回流、重绘，增加了性能上的损耗。
+
+> 11. React.memo
+
+- 为高阶组件
+- 包装函数组件，以此缓存记忆组件渲染结果，在函数组件被渲染更新阶段如果前后props相同的情况下直接返回缓存的上次渲染结果，提高组件性能
+- props相同情况下，被包裹函数组件将不再被执行。
+- 浅比较
+
