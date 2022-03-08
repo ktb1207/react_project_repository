@@ -18,6 +18,7 @@ function LoginControl() {
     dispatch({ ...hideLoading() });
   };
 
+  
   return (
     <div>
       <button onClick={login}>登录</button>
