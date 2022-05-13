@@ -89,7 +89,7 @@ var b = {
 console.log(a instanceof Array) // true
 console.log(b instanceof Object) // true
 
-console.log(a instanceof Array) // true, 
+console.log(a instanceof Object) // true, 
 
 console.log(null instanceof Object) // false
 

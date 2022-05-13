@@ -2,7 +2,8 @@ import { useDispatch } from 'react-redux';
 import { loginSuccess, loginError } from '../store/actions/createLoginAction';
 import { showLoading, hideLoading } from '../store/actions/createLoadingAction';
 
-function LoginControl() {
+
+function LoginControl(props) {
   const dispatch = useDispatch();
   const login = () => {
     dispatch({ ...loginSuccess() });
@@ -18,6 +19,10 @@ function LoginControl() {
     dispatch({ ...hideLoading() });
   };
 
+  const changProps = ()=> {
+    props.nowNum +=1;
+  }
+
   
   return (
     <div>
@@ -25,6 +30,7 @@ function LoginControl() {
       <button onClick={quit}>退出</button>
       <button onClick={show}>显示loading</button>
       <button onClick={hide}>关闭loading</button>
+      <button onClick={changProps}>{props.nowNum}</button>
     </div>
   );
 }
