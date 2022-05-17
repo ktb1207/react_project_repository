@@ -5,6 +5,7 @@ import './App.css';
 import Home from '@/pages/home/index';
 import Login from '@/pages/login/index';
 import About from '@/pages/about/index';
+import User from '@/pages/user/index';
 
 interface IProps {}
 
@@ -19,6 +20,7 @@ const App: FC<IProps> = () => {
           <Route path="/" element={<Login></Login>}></Route>
           <Route path="/home" element={<Home></Home>}></Route>
           <Route path="/about" element={<About></About>}></Route>
+          <Route path="/user/:userId" element={<User></User>}></Route>
           {/* 404 */}
           <Route path="*" element={<span>not found 404</span>}></Route>
         </Routes>
