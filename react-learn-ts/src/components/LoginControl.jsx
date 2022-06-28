@@ -2,7 +2,6 @@ import { useDispatch } from 'react-redux';
 import { loginSuccess, loginError } from '../store/actions/createLoginAction';
 import { showLoading, hideLoading } from '../store/actions/createLoadingAction';
 
-
 function LoginControl(props) {
   const dispatch = useDispatch();
   const login = () => {
@@ -19,11 +18,11 @@ function LoginControl(props) {
     dispatch({ ...hideLoading() });
   };
 
-  const changProps = ()=> {
-    props.nowNum +=1;
-  }
+  const changProps = () => {
+    // props.nowNum +=1;
+    console.log('props 不可修改，否则导致错误');
+  };
 
-  
   return (
     <div>
       <button onClick={login}>登录</button>
