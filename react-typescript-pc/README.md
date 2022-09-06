@@ -1,4 +1,4 @@
-### 说明
+### react typescript项目实战
 
 ##### 支持功能
 1. sass
