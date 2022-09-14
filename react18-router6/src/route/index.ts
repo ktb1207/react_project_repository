@@ -1,1 +1,1 @@
-export {};
+export { router } from './ConfigRoute';
