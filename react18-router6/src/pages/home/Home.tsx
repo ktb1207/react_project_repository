@@ -10,7 +10,7 @@ const Home: FC<IProps> = () => {
   const hrefUser = (e: React.MouseEvent) => {
     console.log(e);
     console.log(location);
-    navigate('/user/123456');
+    navigate('/about');
   };
 
   return (
