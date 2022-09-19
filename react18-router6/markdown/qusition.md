@@ -36,3 +36,21 @@ const RootSuspense: FC<IProps> = (props) => {
 
 export {RootSuspense}
 ```
+
+### 未匹配路由处理
+
+在v5版本中，不匹配路由页面放在Route里面，并放在switch组件的最尾部
+
+```js
+<Route path="*">
+  <NoMatch />
+</Route>
+```
+
+在v6版本中,不用强制放在最末尾
+```js
+{
+  path: '*',
+  element: <h3>404 router</h3>
+}
+```
