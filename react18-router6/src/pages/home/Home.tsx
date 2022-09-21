@@ -1,22 +1,14 @@
 import React, { FC } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Outlet } from 'react-router-dom';
 
 interface IProps {}
 
 const Home: FC<IProps> = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  const hrefUser = (e: React.MouseEvent) => {
-    console.log(e);
-    console.log(location);
-    navigate('/about');
-  };
 
   return (
     <div>
       <h3>这是home页</h3>
-      <button onClick={(e) => hrefUser(e)}>跳转user</button>
+      <Outlet></Outlet>
     </div>
   );
 };

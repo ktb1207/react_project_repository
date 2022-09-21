@@ -7,11 +7,24 @@ const HomePage = React.lazy(() => import('@/pages/home/index'));
 const LoginPage = React.lazy(() => import('@/pages/login/index'));
 const AboutPage = React.lazy(() => import('@/pages/about/index'));
 
+const HomeTop = React.lazy(() => import('@/pages/homeChildren/Top'))
+const HomeLeft = React.lazy(() => import('@/pages/homeChildren/Left'))
+
 const router = createBrowserRouter([
   {
     path: '/',
     element: <HomePage></HomePage>,
-    loader: async({params, request}) => await routeAuth({params, request, loginAuth: true, title: 'home'})
+    loader: async({params, request}) => await routeAuth({params, request, loginAuth: true, title: 'home'}),
+    children: [
+      {
+        index: true,
+        element: <HomeTop></HomeTop>
+      },
+      {
+        path: 'left',
+        element: <HomeLeft></HomeLeft>
+      }
+    ]
   },
   {
     path: '/login',
@@ -20,7 +33,6 @@ const router = createBrowserRouter([
   },
   {
     path: '/post/login',
-    element: <h5>login-ing</h5>,
     action: async({params,request}) => await loginForm({params, request})
   },
   {
