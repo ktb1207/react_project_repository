@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>简单实现dispatch</title>
+</head>
+<body>
+  <div id="root">
+    <div id="parent">
+      <p>这是简单实现dispatch机制的demo,便于理解</p>
+      <button id="child">click</button>
+    </div>
+  </div>
+</body>
+<script>
+  const root = document.getElementById('root')
+  const parent = document.getElementById('parent')
+  const child = document.getElementById('child')
+
+
+  function dispatchEvent(e, isCapture){
+    let pathNodeTarget = [];
+    let currentTarget = e.target; // 触发事件自身
+    while (currentTarget) {
+      pathNodeTarget.push(currentTarget)
+      currentTarget = currentTarget.parentNode
+    }
+    // [child, parent, root, body, html, document]
+    if(isCapture){
+      // 捕获，倒叙执行
+      for(let i=pathNodeTarget.length - 1; i>=0; i--) {
+        pathNodeTarget[i].onClickCapture && pathNodeTarget[i].onClickCapture()
+      }
+    } else {
+      // 冒泡，正序执行
+      for(let i = 0; i < pathNodeTarget.length; i++){
+        pathNodeTarget[i].onClick && pathNodeTarget[i].onClick()
+      }
+    }
+  }
+  // 捕获
+  // root.addEventListener('click', event => dispatchEvent(event, true), true)
+  // 冒泡
+  // root.addEventListener('click', event => dispatchEvent(event, false), false)
+
+  parent.addEventListener('click', (e) => {
+    e.stopPropagation()
+    console.log('父-原生-捕获')
+  }, true)
+  parent.addEventListener('click', () => console.log('父-原生-冒泡'), false)
+
+  child.addEventListener('click', () => console.log('子-原生-捕获'), true)
+  child.addEventListener('click', () => console.log('子-原生-冒泡'), false)
+  child.onclick = function(){
+    console.log('111111')
+  }
+
+  // 节点添加自定义合成事件属性-捕获
+  parent.onClickCapture = function() {
+    console.log('父-合成-捕获')
+  }
+  // 节点添加自定义合成事件属性-冒泡
+  parent.onClick = function() {
+    console.log('父-合成-冒泡')
+  }
+
+  child.onClickCapture = function() {
+    console.log('子-合成-捕获')
+  }
+  child.onClick = function() {
+    console.log('子-合成-冒泡')
+  }
+  
+</script>
+</html>
