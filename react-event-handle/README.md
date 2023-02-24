@@ -55,3 +55,9 @@ listenToAllSupportedEvents(rootContainerElement): root
 
 ### 事件触发
 
+
+
+
+参考链接：
+http://www.javashuo.com/article/p-hwpsfeac-vg.html
+
